@@ -6,7 +6,10 @@ void per(int k, float len, float *p);
 void input(int *k, float *len, coordinates *c, int *n); 
 void menu(figures *polygon, int *n); 
 void output(figures *polygon);
-void outputcoord(
+void outputcoord(coordinates *c);
+void maxper(figures *polygon);
+void maxsquare(figures *polygon);
+void coord();
 struct coordinates{ 
     float x, y; 
 }; 
@@ -21,7 +24,7 @@ int main()
 { 
     int choose, n=0; 
     figures polygon[100]; 
-    input(&polygon.sides, &polygon.len, &polygon.c1, &n); 
+    menu(&polygon, &n); 
     return 0; 
 } 
 void square(int k, float len, float *sq){ 
@@ -30,6 +33,9 @@ void square(int k, float len, float *sq){
 void per(int k, float len, float *p){ 
     *p=s*len; 
 } 
+void maxper(figures *polygon);
+void maxsquare(figures *polygon);
+void coord();
 void input(int *k, float *len, coordinates *c, int *n){ 
     cout<<"Input number of sides"<<endl; 
     cin>>(*k); 
@@ -38,7 +44,9 @@ void input(int *k, float *len, coordinates *c, int *n){
     cout<<"Input coordinates of the first point"<<endl; 
     cin>>(c->x); 
     cin>>(c->y); 
-    
+    per();
+    square();
+    coord();
     (*n)++; 
 } 
 void output(figures *polygon){
@@ -50,7 +58,7 @@ cout<<"p="<<p<<endl;
 cout<<"s="<<s<<endl;
 }
 void menu(figures *polygon, int *n){ 
-    int choose; 
+    int choose, it=1; 
     cout<<"Choose your option:"<<endl; 
     cout<<"1-Input new information about a polygon"<<endl; 
     cout<<"2-Look through the information"<<endl; 
@@ -58,7 +66,8 @@ void menu(figures *polygon, int *n){
     cout<<"4-Define maximal square or perimetr"<<endl; 
     cout<<"5-Quit"<<endl; 
     cin>>choose; 
-    switch(choose){ 
+    while(it==1){
+     switch(choose){ 
         case 1: 
             input(&polygon->sides, &polygon->len, &polygon->c1, n); 
             break; 
@@ -79,10 +88,14 @@ void menu(figures *polygon, int *n){
             cin>>choose1;
             switch(choose1){
                 case 1:
+                    cout<<"The end"<<endl<<endl<<endl<<endl<<endl;
+                    it=0;
                 break;
                 case 2:
+                    it=1;
                 break;
                 default:
+                    cout<<"Error"<<endl;
                 break;
             }
             break; 
@@ -91,5 +104,5 @@ void menu(figures *polygon, int *n){
             break; 
 
     } 
-
+ }
 }
