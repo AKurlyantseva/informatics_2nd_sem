@@ -6,6 +6,7 @@ void per(int k, float len, float *p);
 void input(int *k, float *len, coordinates *c, int *n); 
 void menu(figures *polygon, int *n); 
 void output(figures *polygon);
+void outputcoord(
 struct coordinates{ 
     float x, y; 
 }; 
@@ -37,9 +38,17 @@ void input(int *k, float *len, coordinates *c, int *n){
     cout<<"Input coordinates of the first point"<<endl; 
     cin>>(c->x); 
     cin>>(c->y); 
+    
     (*n)++; 
 } 
-void output(figures *polygon);
+void output(figures *polygon){
+cout<<"number of sides: "<<polygon->sides<<endl;
+cout<<"length of sides: "<<polygon->len<<endl;
+cout<<"coordinates:"<<endl;
+outputcoord(&polygon->c1);
+cout<<"p="<<p<<endl;
+cout<<"s="<<s<<endl;
+}
 void menu(figures *polygon, int *n){ 
     int choose; 
     cout<<"Choose your option:"<<endl; 
