@@ -39,12 +39,31 @@ void per(figures *polygon){
 }
 void maxper(figures *polygon, int *n){
     double maxper=0;
-    //
-
+    for(int i=0; i<(*n); i++){
+        if(maxper<=(*(polygon->p))){
+            maxper=*(polygon->p);
+        }
+}
+    cout<<"Polygons with maximal perimetr:"<<endl;
+    for(int j=0; j<(*n); j++){
+        if(*(polygon->p)==maxper){
+            cout<<j<<endl;
+}
+}
 }
 void maxsquare(figures *polygon, int *n){
     double maxsq=0;
-    //
+    for(int i=0; i<(*n); i++){
+        if(maxsq<=(*(polygon->sq))){
+            maxsq=*(polygon->sq);
+        }
+}
+    cout<<"Polygons with maximal square:"<<endl;
+    for(int j=0; j<(*n); j++){
+        if(*(polygon->sq)==maxpsq){
+            cout<<j<<endl;
+}
+}
 }
 void coord(figures *polygon){
     //
