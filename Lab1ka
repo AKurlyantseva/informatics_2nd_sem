@@ -83,6 +83,9 @@ void maxsquare(figures *polygon, int *n){
     cout<<"Input coordinates of the first point"<<endl;
     cin>>(polygon->c1[0]->x);
     cin>>(polygon->c1[0]->y);
+    double x0, y0, phi;
+    x0=(polygon->c1[0]->x)-(polygon->len)*cos(atan((polygon->c1[0]->y)/(polygon->c1[0]->x)));
+    y0=(polygon->c1[0]->y)-(polygon->len)*sin(atan((polygon->c1[0]->y)/(polygon->c1[0]->x)));
     for(int i=1; i<(polygon->sides); i++){
         (polygon->c1[i]->x)=(polygon->c1[i-1]->x)-(polygon->len)*cos(44/(7*(polygon->sides)));
         (polygon->c1[i]->y)=(polygon->c1[i-1]->y)+(polygon->len)*sin(44/(7*(polygon->sides)));
