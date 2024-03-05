@@ -99,11 +99,16 @@ void input(figures *polygon, int *n){
     realloc(polygon, n);
     cout<<"Input number of sides"<<endl;
     cin>>(polygon[(*n)-1].sides);
-    cout<<"Input length"<<endl;
-    cin>>(polygon[(*n)-1].len);
-    per(&polygon[(*n)-1]);
-    square(&polygon[(*n)-1]);
-   // coord(polygon[(*n)-1]);
+    if(polygon[(*n)-1].sides<=2){
+        cout<<"Error"<<endl;
+    }
+    else{
+        cout<<"Input length"<<endl;
+        cin>>(polygon[(*n)-1].len);
+        per(&polygon[(*n)-1]);
+        square(&polygon[(*n)-1]);
+    // coord(polygon[(*n)-1]);
+    }
 }
 /*void outputcoord(figures *polygon){
     cout<<"Coordinates:"<<endl;
