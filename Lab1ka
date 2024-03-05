@@ -40,9 +40,10 @@ struct figures{
 };*/
 int main()
 {
-    int n=0;
+    int n=1;
     figures polygon[10];
 //  figures *polygon=new figures[1];
+//  menu(polygon, &n);
     menu(&polygon, &n);
     return 0;
 }
