@@ -28,7 +28,7 @@ void newpage();
 void deletefigure(figures *polygon, int *n);
 int main()
 {
-    int n=0;
+    int n=1;
     figures *polygon=new figures[1];
     menu(polygon, &n);
     return 0;
@@ -38,9 +38,9 @@ void realloc(figures *polygon, int *n){
     for(int i=0; i<((*n)-1); i++){
         pol1[i]=polygon[i];
         }
-    delete [] polygon;
+    polygon=new figures[*n];
     polygon=pol1;
-    delete [] pol1;
+    pol1=new figures[1];
 }
 
 void square(figures *polygon){
@@ -106,6 +106,7 @@ void input(figures *polygon, int *n){
         per(&polygon[(*n)-1]);
         square(&polygon[(*n)-1]);
     // coord(polygon[(*n)-1]);
+        cout<<"Successfully added"<<endl;
     }
 }
 /*void outputcoord(figures *polygon){
