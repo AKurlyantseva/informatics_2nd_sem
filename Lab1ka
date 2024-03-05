@@ -37,7 +37,7 @@ int main()
 }
 void realloc(figures *polygon, int *n){
     figures *pol1=new figures[*n];
-    for(int i=0; i<(*(n-1)); i++){
+    for(int i=0; i<((*n)-1); i++){
         pol1[i]=polygon[i];
         }
     delete [] polygon;
