@@ -14,6 +14,7 @@ struct figures{
     //coordinates *c1=new coordinates[sides];
     coordinates c1[100];
 };
+//void realloc(figures *polygon, int *n);
 void square(figures *polygon);
 void per(figures *polygon);
 void input(figures *polygon, int *n);
@@ -44,6 +45,16 @@ int main()
     menu(&polygon, &n);
     return 0;
 }
+/*void realloc(figures *polygon, int *n){
+    figures *pol1=new figures[*n];
+    for(int i=0; i<(*(n-1)); i++){
+        pol1[i]=polygon[i];
+        }
+    delete [] polygon;
+    polygon=pol1;
+    delete [] pol1;
+}
+*/
 void square(figures *polygon){
     (*(polygon->sq))=(pow((polygon->len),2)*(polygon->sides))/(4*tan(22/(7*(polygon->sides))));
 }
@@ -59,7 +70,7 @@ void maxper(figures *polygon, int *n){
 }
     cout<<"Polygons with maximal perimetr:"<<endl;
     for(int j=0; j<(*n); j++){
-        if(*(polygon->p)==maxper){
+       if(*(polygon->p)==maxper){
             cout<<j<<endl;
 }
 }
@@ -95,6 +106,7 @@ void maxsquare(figures *polygon, int *n){
     }
 }*/
 void input(figures *polygon, int *n){
+    (*n)++;
     cout<<"Input number of sides"<<endl;
     cin>>(polygon->sides);
     cout<<"Input length"<<endl;
@@ -105,7 +117,7 @@ void input(figures *polygon, int *n){
     per(polygon);
     square(polygon);
    // coord(polygon);
-   (*n)++;
+   //(*n)++;
 }
 /*void outputcoord(figures *polygon){
     cout<<"Coordinates:"<<endl;
