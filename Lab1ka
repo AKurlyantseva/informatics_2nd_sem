@@ -92,7 +92,6 @@ void maxsquare(figures *polygon, int *n){
 }
 }
 /*void coord(figures *polygon){
-    //(polygon->c1)=new coordinates[sides];
     cout<<"Input coordinates of the first point"<<endl;
     cin>>(polygon->c1[0]->x);
     cin>>(polygon->c1[0]->y);
