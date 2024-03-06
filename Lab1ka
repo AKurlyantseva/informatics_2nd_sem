@@ -15,10 +15,11 @@ struct figures{
     coordinates c1[100];
 };
 void realloc(figures *polygon, int *n);
-///figures *realloc(figures *polygon, int *n);
+//figures *realloc(figures *polygon, int *n);
 void square(figures *polygon);
 void per(figures *polygon);
 void input(figures *polygon, int *n);
+//figures *input(figures *polygon, int *n);
 void menu(figures *polygon, int *n);
 void output(figures *polygon);
 void outputcoord(figures *polygon);
@@ -27,11 +28,13 @@ void maxsquare(figures *polygon, int *n);
 void coord(figures *polygon);
 void newpage();
 void deletefigure(figures *polygon, int *n);
+//figures *deletefigure(figures *polygon, int *n);
 int main()
 {
     int n=1;
     figures *polygon=new figures[1];
     menu(polygon, &n);
+    //delete [] polygon;
     return 0;
 }
 void realloc(figures *polygon, int *n){
@@ -103,7 +106,9 @@ void maxsquare(figures *polygon, int *n){
     }
 }*/
 void input(figures *polygon, int *n){
+//figures *input(figures *polygon, int *n){
     (*n)++;
+//figures *pol1=NULL;
     realloc(polygon, n);
   //figures *pol1=realloc(polygon, n);
     cout<<"Input number of sides"<<endl;
@@ -119,6 +124,7 @@ void input(figures *polygon, int *n){
     // coord(polygon[(*n)-1]);
         cout<<"Successfully added"<<endl;
     }
+  //return pol1;
 }
 /*void outputcoord(figures *polygon){
     cout<<"Coordinates:"<<endl;
@@ -135,6 +141,8 @@ void output(figures *polygon){
     cout<<"s="<<(*(polygon->sq))<<endl;
 }
 void deletefigure(figures *polygon, int *n){
+//figures *deletefigure(figures *polygon, int *n){
+    //figures *pol1=NULL;
     cout<<"Select the polygon number (starting from 0)"<<endl;
             int num;
             cin>>num;
@@ -148,6 +156,7 @@ void deletefigure(figures *polygon, int *n){
                (*n)=(*n)-1;
                realloc(polygon, n);
             }
+//return pol1;
 }
 void newpage(){
     for(int i=0; i<120; i++){
@@ -156,6 +165,7 @@ void newpage(){
 }
 void menu(figures *polygon, int *n){
     int choose, it=1;
+  //figures *pol1=NULL;
     cout<<"Choose your option:"<<endl;
     cout<<"1-Input new information about a polygon"<<endl;
     cout<<"2-Look through the information"<<endl;
@@ -168,6 +178,7 @@ void menu(figures *polygon, int *n){
     switch(choose){
     case 1:
         input(polygon, n);
+      //pol1=input(polygon, n);
         break;
         case 2:
             for(int i=0; i<(*n); i++){
@@ -176,6 +187,7 @@ void menu(figures *polygon, int *n){
             break;
             case 3:
                 deletefigure(polygon, n);
+             //pol1=deletefigure(polygon, n);
                 break;
                 case 4:
             cout<<"Choose your option."<<endl;
@@ -210,6 +222,9 @@ void menu(figures *polygon, int *n){
                     switch(choose1){
                         case 1:
                             cout<<"The end"<<endl;
+                            if(pol1!=NULL){
+                                delete [] pol1;
+                            }
                             delete [] polygon;
                             newpage();
                             it=0;
