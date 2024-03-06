@@ -15,6 +15,7 @@ struct figures{
     coordinates c1[100];
 };
 void realloc(figures *polygon, int *n);
+///figures *realloc(figures *polygon, int *n);
 void square(figures *polygon);
 void per(figures *polygon);
 void input(figures *polygon, int *n);
@@ -34,13 +35,18 @@ int main()
     return 0;
 }
 void realloc(figures *polygon, int *n){
+//figures *realloc(figures *polygon, int *n){
     figures *pol1=new figures[*n];
     for(int i=0; i<((*n)-1); i++){
         pol1[i]=polygon[i];
         }
     polygon=new figures[*n];
-    polygon=pol1;
+    //polygon=pol1;
+    for(int i=0; i<((*n)-1); i++){
+        polygon[i]=pol1[i];
+        }
     pol1=new figures[1];
+    //return pol1;
 }
 
 void square(figures *polygon){
@@ -99,6 +105,7 @@ void maxsquare(figures *polygon, int *n){
 void input(figures *polygon, int *n){
     (*n)++;
     realloc(polygon, n);
+  //figures *pol1=realloc(polygon, n);
     cout<<"Input number of sides"<<endl;
     cin>>(polygon[(*n)-1].sides);
     if(polygon[(*n)-1].sides<=2){
