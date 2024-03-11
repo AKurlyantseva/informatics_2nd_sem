@@ -9,6 +9,7 @@ double v;
 public:
     int tyres, ref;
     double time, speed, power, con;
+    char* name;
     Vehicle();
     ~Vehicle();
 };
