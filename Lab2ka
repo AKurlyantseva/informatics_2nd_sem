@@ -33,11 +33,21 @@ double trace(){
 double trace;
 cout<<"Input trace length"<<endl;
 cin>>trace;
+int it=1;
+while(it=1){
+if(trace<0){
+    cout<<"Error. Try again."<<endl;
+    it=1;
+}
+else{
+    cout<<"Success."<<endl;
+    it=0;
+}
+}
 return trace;}
 void trace_count(Vehicle *car, int n);
 void output(Vehicle *car, int n);
 void trace_results(Vehicle *car, int n);
-void output_trace(Vehicle *car, int n);
 void menu(Vehicle *car){
 int choose, it=1;
     while(it==1){
@@ -60,13 +70,13 @@ int choose, it=1;
             output(car, n);
             break;
             case 3:
-
+                trace();
                 break;
                 case 4:
-
+                 trace_count(car, n);
                 break;
                 case 5:
-
+                     trace_results(car, n);
                     break;
                 case 6:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
