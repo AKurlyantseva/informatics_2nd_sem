@@ -12,3 +12,7 @@ public:
     Vehicle();
     ~Vehicle();
 };
+void menu();
+double trace();
+void output();
+void trace_results();
