@@ -1,29 +1,97 @@
 #include <iostream>
 using namespace std;
 class Vehicle{
-double count_speed();
-double count_time();
-double count_con();
+double count_speed(double power, int tyres);
+double count_time(double v, double con);
+double count_con(double power);
 int count_ref();
 double v;
 public:
-    int tyres, ref;
+    int tyres, refuel;
     double time, speed, power, con;
     char* name;
     Vehicle();
     ~Vehicle();
 };
-void menu();
+void menu(Vehicle *car, int n);
 double trace();
-void output();
-void trace_results();
+void trace_count(Vehicle *car, int n);
+void output(Vehicle *car, int n);
+void trace_results(Vehicle *car, int n);
+void output_trace(Vehicle *car, int n);
 void newpage();
 int main(){
-
+Vehicle car[5];
 return 0;
 }
 void newpage(){
     for(int i=0; i<120; i++){
         cout<<endl;
+    }
+}
+double trace(){
+double trace;
+cout<<"Input trace length"<<endl;
+cin>>trace;
+return trace;}
+void trace_count(Vehicle *car, int n);
+void output(Vehicle *car, int n);
+void trace_results(Vehicle *car, int n);
+void output_trace(Vehicle *car, int n);
+void menu(Vehicle *car){
+int choose, it=1;
+    while(it==1){
+            cout<<"Choose your option:"<<endl;
+            cout<<"1-Input new information about vehicles"<<endl;
+            cout<<"2-Look through the information"<<endl;
+            cout<<"3-Input trace length"<<endl;
+            cout<<"4-Count trace"<<endl;
+            cout<<"5-Output results"<<endl;
+            cout<<"6-Quit"<<endl;
+            cin>>choose;
+    newpage();
+    switch(choose){
+    case 1:
+        for(int i=0; i<n; i++){
+                Vehicle car[i];
+        }
+        break;
+        case 2:
+            output(car, n);
+            break;
+            case 3:
+
+                break;
+                case 4:
+
+                break;
+                case 5:
+
+                    break;
+                case 6:
+                    cout<<"Are you sure? (1-yes, 2-no)"<<endl;
+                    int choose1;
+                    cin>>choose1;
+                    newpage();
+                    switch(choose1){
+                        case 1:
+                            cout<<"The end"<<endl;
+                            delete [] polygon;
+                            newpage();
+                            it=0;
+                            break;
+                            case 2:
+                                it=1;
+                                break;
+                                default:
+                                    cout<<"Error"<<endl;
+                                    break;
+                                    }
+                                    break;
+                                    default:
+                                        cout<<"Error. Try again."<<endl;
+                                        break;
+                                        }
+                                        newpage();
     }
 }
