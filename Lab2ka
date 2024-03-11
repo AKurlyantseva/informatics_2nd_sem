@@ -1,2 +1,14 @@
 #include <iostream>
 using namespace std;
+class Vehicle{
+double count_speed();
+double count_time();
+double count_con();
+int count_ref();
+double v;
+public:
+    int tyres, ref;
+    double time, speed, power, con;
+    Vehicle();
+    ~Vehicle();
+};
