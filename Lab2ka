@@ -16,3 +16,13 @@ void menu();
 double trace();
 void output();
 void trace_results();
+void newpage();
+int main(){
+
+return 0;
+}
+void newpage(){
+    for(int i=0; i<120; i++){
+        cout<<endl;
+    }
+}
