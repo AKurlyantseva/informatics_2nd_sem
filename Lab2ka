@@ -5,9 +5,14 @@ double count_speed(double power, int tyres);
 double count_time(double v, double con);
 double count_con(double power);
 int count_ref();
+//void output();
+//char* name;
+//int tyres, refuel;
+//double time, power, con;
 double v;
 public:
     int tyres, refuel;
+    //double speed;
     double time, speed, power, con;
     char* name;
     Vehicle();
@@ -22,6 +27,8 @@ void output_trace(Vehicle *car, int n);
 void newpage();
 int main(){
 Vehicle car[5];
+n=5;
+menu(car, n);
 return 0;
 }
 void newpage(){
