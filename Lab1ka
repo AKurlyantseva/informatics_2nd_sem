@@ -119,7 +119,7 @@ void input(figures *polygon, int *n){
     cout<<"Input number of sides"<<endl;
     cin>>(polygon[(*n)-1].sides);
     if(polygon[(*n)-1].sides<=2){
-        cout<<"Error"<<endl;
+        cout<<"Error. Try again."<<endl;
     }
     else{
         cout<<"Input length"<<endl;
