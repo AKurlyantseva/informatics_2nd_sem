@@ -148,6 +148,10 @@ void outputcoord(figures *polygon){
     cout<<"s="<<(polygon->sq)<<endl;
 }*/
 void output(figures *polygon, int n){
+    if(n==0){
+        cout<<"Empty"<<endl;
+    }
+    else{
     for(int i=0; i<n; i++){
     cout<<"Polygon"<<i<<endl;
     cout<<"number of sides: "<<(polygon[i].sides)<<endl;
@@ -155,6 +159,7 @@ void output(figures *polygon, int n){
     outputcoord(polygon);
     cout<<"p="<<(polygon[i].p)<<endl;
     cout<<"s="<<(polygon[i].sq)<<endl;
+    }
     }
 }
 void deletefigure(figures *polygon, int *n){
