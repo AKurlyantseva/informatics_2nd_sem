@@ -32,7 +32,6 @@ int main()
 {
     int n=1;
     figures *polygon=new figures[1];
-    //first(polygon, &n);
     menu(polygon, &n);
     //delete [] polygon;
     return 0;
@@ -114,6 +113,8 @@ void input(figures *polygon, int *n){
 //figures *pol1=NULL;
     realloc(polygon, n);
   //figures *pol1=realloc(polygon, n);
+    int it=1;
+    while(it==1){
     cout<<"Input number of sides"<<endl;
     cin>>(polygon[(*n)-1].sides);
     if(polygon[(*n)-1].sides<=2){
@@ -126,6 +127,8 @@ void input(figures *polygon, int *n){
         square(&polygon[(*n)-1]);
         coord(&polygon[(*n)-1]);
         cout<<"Successfully added"<<endl;
+        it=0;
+    }
     }
   //return pol1;
 }
