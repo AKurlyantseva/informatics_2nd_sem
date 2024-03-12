@@ -20,7 +20,8 @@ void per(figures *polygon);
 void input(figures *polygon, int *n);
 //figures *input(figures *polygon, int *n);
 void menu(figures *polygon, int *n);
-void output(figures *polygon);
+//void output(figures *polygon);
+void output(figures *polygon, int n);
 void outputcoord(figures *polygon);
 void maxper(figures *polygon, int *n);
 void maxsquare(figures *polygon, int *n);
@@ -30,7 +31,7 @@ void deletefigure(figures *polygon, int *n);
 //figures *deletefigure(figures *polygon, int *n);
 int main()
 {
-    int n=1;
+    int n=0;
     figures *polygon=new figures[1];
     menu(polygon, &n);
     //delete [] polygon;
@@ -138,13 +139,23 @@ void outputcoord(figures *polygon){
         cout<<"("<<polygon->c1[i].x<<";"<<polygon->c1[i].y<<")"<<endl;
     }
 }
-void output(figures *polygon){
+/*void output(figures *polygon){
     cout<<"number of sides: "<<(polygon->sides)<<endl;
     cout<<"length of sides: "<<(polygon->len)<<endl;
-    cout<<"coordinates:"<<endl;
-    outputcoord(polygon);
+    //cout<<"coordinates:"<<endl;
+    //outputcoord(polygon);
     cout<<"p="<<(polygon->p)<<endl;
     cout<<"s="<<(polygon->sq)<<endl;
+}*/
+void output(figures *polygon, int n){
+    for(int i=0; i<n; i++){
+    cout<<"number of sides: "<<(polygon[i].sides)<<endl;
+    cout<<"length of sides: "<<(polygon[i].len)<<endl;
+    //cout<<"coordinates:"<<endl;
+    //outputcoord(polygon);
+    cout<<"p="<<(polygon[i].p)<<endl;
+    cout<<"s="<<(polygon[i].sq)<<endl;
+    }
 }
 void deletefigure(figures *polygon, int *n){
 //figures *deletefigure(figures *polygon, int *n){
@@ -187,9 +198,10 @@ void menu(figures *polygon, int *n){
       //pol1=input(polygon, n);
         break;
         case 2:
-            for(int i=0; i<(*n); i++){
+            /*for(int i=0; i<(*n); i++){
                     output(&polygon[i]);
-            }
+            }*/
+            output(polygon, (*n));
             break;
             case 3:
                 deletefigure(polygon, n);
