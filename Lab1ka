@@ -149,6 +149,7 @@ void outputcoord(figures *polygon){
 }*/
 void output(figures *polygon, int n){
     for(int i=0; i<n; i++){
+    cout<<"Polygon"<<i<<endl;
     cout<<"number of sides: "<<(polygon[i].sides)<<endl;
     cout<<"length of sides: "<<(polygon[i].len)<<endl;
     outputcoord(polygon);
