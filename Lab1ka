@@ -29,8 +29,8 @@ void coord(figures *polygon);
 void newpage();
 void deletefigure(figures *polygon, int *n);
 //figures *deletefigure(figures *polygon, int *n);
-//int checkchar(int i);
-//double checkchar(double j);
+//int checkchar(char i);
+//double checkchar(char j);
 int main()
 {
     int n=0;
@@ -39,10 +39,10 @@ int main()
     //delete [] polygon;
     return 0;
 }
-/*int checkchar(int i){
+/*int checkchar(char i){
 
 }*/
-/*double checkchar(double j){
+/*double checkchar(char j){
 
 }*/
 void realloc(figures *polygon, int *n){
