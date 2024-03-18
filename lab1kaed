@@ -252,3 +252,30 @@ void menu(figures *polygon, int *n){
                                         newpage();
  }
 }
+/*#include <iostream>
+
+using namespace std;
+int checkchar(char i);
+int main()
+{
+    int i;
+    char i1;
+    cout<<"Input"<<endl;
+    cin>>i1;
+    i=checkchar(i1);
+    cout << i << endl;
+    return 0;
+}
+int checkchar(char i){
+    int i1;
+ switch(i){
+ case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z':
+    i1=(int) i;
+    break;
+ default:
+    i1=i-48;
+    break;
+    }
+ return i1;
+}
+*/
