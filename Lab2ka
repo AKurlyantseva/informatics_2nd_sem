@@ -15,7 +15,12 @@ public:
     double speed;
     //double time, speed, power, con;
     char* name;
-    Vehicle(int t_tyres, double t_v, double t_power, );
+    Vehicle(int t_tyres, double t_v, double t_power, double t_range){
+      tyres=t_tyres;
+      v=t_v;
+      power=t_power;
+      range=t_range;
+    }
     ~Vehicle();
 };
 void menu(Vehicle *car, int n);
