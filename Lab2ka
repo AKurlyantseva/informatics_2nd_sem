@@ -15,7 +15,7 @@ public:
     //double speed;
     double time, speed, power, con;
     char* name;
-    Vehicle();
+    Vehicle(int t_tyres, );
     ~Vehicle();
 };
 void menu(Vehicle *car, int n);
