@@ -279,3 +279,38 @@ int main()
  return i1;
 }
 !*/
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <cstring>
+#include <cmath>
+using namespace std;
+int checkchar(char *i);
+int main() {
+    int i1;
+    char *i=new char[10];
+    cout<<"Input"<<endl;
+    cin>>i;
+    i1=checkchar(i);
+    cout<<i1<<endl;
+   /* int i;
+    cin>>i;
+    cout<<i;*/
+    return 0;
+}
+int checkchar(char *i){
+    int i1=0;
+    char b;
+    for(int j=0; j<strlen(i);j++){
+ switch(i[j]){
+ case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z':
+    i1+=(int)i[j];
+    break;
+ default:
+    int c;
+    c=i[j];
+    i1=i1+pow(10,(strlen(i)-j-1))*(c-48);
+    break;}
+    }
+
+ return i1;
+}
