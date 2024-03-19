@@ -8,7 +8,7 @@ struct coordinates{
 struct figures{
     int sides;
     double len;
-    long double sq;
+    double sq;
     double p;
     //coordinates *c1=new coordinates[sides];
     coordinates c1[100];
@@ -71,6 +71,10 @@ void per(figures *polygon){
 }
 void maxper(figures *polygon, int *n){
     double maxper=0;
+    if((*n)==0){
+        cout<<"Unable to define"<<endl;
+    }
+    else{
     for(int i=0; i<(*n); i++){
         if((maxper-((polygon[i].p)))<0){
             maxper=((polygon[i].p));
@@ -82,9 +86,14 @@ void maxper(figures *polygon, int *n){
             cout<<j<<endl;
 }
 }
+    }
 }
 void maxsquare(figures *polygon, int *n){
     double maxsq=0;
+    if((*n)==0){
+        cout<<"Unable to define"<<endl;
+    }
+    else{
     for(int i=0; i<(*n); i++){
         if((maxsq-((polygon[i].sq)))<0){
             maxsq=((polygon[i].sq));
@@ -96,6 +105,7 @@ void maxsquare(figures *polygon, int *n){
             cout<<j<<endl;
 }
 }
+    }
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
@@ -275,3 +285,16 @@ void menu(figures *polygon, int *n){
                                         newpage();
  }
 }
+/*!int checkchar(char i){
+    int i1;
+ switch(i){
+ case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z':
+    i1=(int) i;
+    break;
+ default:
+    i1=i-48;
+    break;
+    }
+ return i1;
+}
+!*/
