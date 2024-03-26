@@ -62,12 +62,13 @@ void realloc(figures *polygon, int *n){
     //return pol1;
 }
 int checkchar1(){
-int i; 
-while (true) {  
+int i;
+while (true) {
     cin>>i;
-    if (!cin)  { cin.clear(); 
-     while (cin.get() != '\n'); 
-     cout << "Error! Retry input\n";   cout << "Enter the number: " << endl; } 
+    if (!cin)  { cin.clear();
+     while (cin.get() != '\n');
+     cout << "Error! Try again."<<endl;
+     cout << "Enter the number: " << endl; }
      else break; }
     return i;
 }
@@ -120,24 +121,30 @@ void maxsquare(figures *polygon, int *n){
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
+
+    (polygon->c1[0].x)=checkchar1();
+    (polygon->c1[0].y)=checkchar1();
     //int v=-1;
-   // while(v!=0){
-    cin>>(polygon->c1[0].x);
-    cin>>(polygon->c1[0].y);
-    double x0, y0, phi, R, a;
-    //v=checkcoord(polygon);
-    R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
+    /*
+    v=checkcoord(polygon);
+    while(v!=0){
+    cout<<"Error. Try again."<<endl;
+    (polygon->c1[0].x)=checkchar1();
+    (polygon->c1[0].y)=checkchar1();
+    v=checkcoord(polygon);
+    }*/
+    double x0, y0, phi, R;
+    R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
     phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
     y0=(polygon->c1[0].y)-R*sin(phi);
     x0=(polygon->c1[0].x)-R*cos(phi);
-    a=sqrt(pow(x0,2)+pow(y0,2));
+    //a=sqrt(pow(x0,2)+pow(y0,2));
     for(int i=1; i<(polygon->sides); i++){
-        (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(polygon->sides));
-        (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(polygon->sides));
-    //}
+        (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon->sides));
+        (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon->sides));
 }
 }
-/*int checkcoord(figures *polygon){
+int checkcoord(figures *polygon){
     double R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
     double at=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
     if(R>at){
@@ -147,7 +154,7 @@ void coord(figures *polygon){
     else{
         return 0;
     }
-}*/
+}
 void input(figures *polygon, int *n){
 //figures *input(figures *polygon, int *n){
     (*n)++;
@@ -208,8 +215,8 @@ void deletefigure(figures *polygon, int *n){
     //figures *pol1=NULL;
     cout<<"Select the polygon number (starting from 0)"<<endl;
             int num;
-            cin>>num;
-            if(num>=(*n)){
+            num=checkchar1();
+            if((num>=(*n))||(num<0)){
                 cout<<"Error"<<endl;
             }
             else{
@@ -218,11 +225,12 @@ void deletefigure(figures *polygon, int *n){
                }
                (*n)=(*n)-1;
                realloc(polygon, n);
+               cout<<"Polygon "<<num<<" has been successfully deleted"<<endl;
             }
 //return pol1;
 }
 void newpage(){
-    for(int i=0; i<120; i++){
+    for(int i=0; i<60; i++){
         cout<<endl;
     }
 }
@@ -236,7 +244,7 @@ void menu(figures *polygon, int *n){
             cout<<"3-Delete information about a polygon"<<endl;
             cout<<"4-Define maximal square or perimetr"<<endl;
             cout<<"5-Quit"<<endl;
-            cin>>choose;
+            choose=checkchar1();
     newpage();
     switch(choose){
     case 1:
@@ -259,7 +267,7 @@ void menu(figures *polygon, int *n){
             cout<<"2-Define the polygon with maximal perimetr"<<endl;
             cout<<"3-Return to the main menu"<<endl;
             int choose2;
-            cin>>choose2;
+            choose2=checkchar1();
             newpage();
             switch(choose2){
                 case 1:
@@ -281,7 +289,7 @@ void menu(figures *polygon, int *n){
                 case 5:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
                     int choose1;
-                    cin>>choose1;
+                    choose1=checkchar1();
                     newpage();
                     switch(choose1){
                         case 1:
@@ -290,7 +298,6 @@ void menu(figures *polygon, int *n){
                                 delete [] pol1;
                             }*/
                             delete [] polygon;
-                            newpage();
                             it=0;
                             break;
                             case 2:
@@ -308,16 +315,3 @@ void menu(figures *polygon, int *n){
                                         newpage();
  }
 }
-/*!int checkchar(char i){
-    int i1;
- switch(i){
- case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z':
-    i1=(int) i;
-    break;
- default:
-    i1=i-48;
-    break;
-    }
- return i1;
-}
-!*/
