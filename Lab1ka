@@ -26,6 +26,8 @@ void outputcoord(figures *polygon);
 void maxper(figures *polygon, int *n);
 void maxsquare(figures *polygon, int *n);
 void coord(figures *polygon);
+//int checkcoord(figures *polygon);
+int checkchar1();
 void newpage();
 void deletefigure(figures *polygon, int *n);
 //figures *deletefigure(figures *polygon, int *n);
@@ -59,7 +61,16 @@ void realloc(figures *polygon, int *n){
     pol1=new figures[1];
     //return pol1;
 }
-
+int checkchar1(){
+int i; 
+while (true) {  
+    cin>>i;
+    if (!cin)  { cin.clear(); 
+     while (cin.get() != '\n'); 
+     cout << "Error! Retry input\n";   cout << "Enter the number: " << endl; } 
+     else break; }
+    return i;
+}
 void square(figures *polygon){
     (polygon->sq)=((double)(polygon->sides))*pow((polygon->len), 2)/(4*tan(22/(7*((double)(polygon->sides)))));
     cout << "Polygon" << polygon << " square " << (polygon->sq)<< endl;
@@ -109,9 +120,12 @@ void maxsquare(figures *polygon, int *n){
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
+    //int v=-1;
+   // while(v!=0){
     cin>>(polygon->c1[0].x);
     cin>>(polygon->c1[0].y);
-    double x0, y0, phi, R, a, at;
+    double x0, y0, phi, R, a;
+    //v=checkcoord(polygon);
     R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
     phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
     y0=(polygon->c1[0].y)-R*sin(phi);
@@ -120,9 +134,20 @@ void coord(figures *polygon){
     for(int i=1; i<(polygon->sides); i++){
         (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(polygon->sides));
         (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(polygon->sides));
-        at=sqrt(pow((polygon->c1[i].x),2)+pow((polygon->c1[i].y),2));
-    }
+    //}
 }
+}
+/*int checkcoord(figures *polygon){
+    double R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
+    double at=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
+    if(R>at){
+        cout<<"Error.Try again"<<endl;
+        return -1;
+    }
+    else{
+        return 0;
+    }
+}*/
 void input(figures *polygon, int *n){
 //figures *input(figures *polygon, int *n){
     (*n)++;
@@ -132,13 +157,14 @@ void input(figures *polygon, int *n){
     int it=1;
     while(it==1){
     cout<<"Input number of sides"<<endl;
-    cin>>(polygon[(*n)-1].sides);
+   polygon[(*n)-1].sides=checkchar1();
+    //cin>>(polygon[(*n)-1].sides);
     if(polygon[(*n)-1].sides<=2){
         cout<<"Error. Try again."<<endl;
     }
     else{
         cout<<"Input length"<<endl;
-        cin>>(polygon[(*n)-1].len);
+        polygon[(*n)-1].len=checkchar1();
         per(&polygon[(*n)-1]);
         square(&polygon[(*n)-1]);
         coord(&polygon[(*n)-1]);
