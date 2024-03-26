@@ -95,8 +95,8 @@ void coord(figures *polygon){
     double x0, y0, phi, R, a, at;
     R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
     phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
-    y0=(polygon->c1[0].y)-(polygon->len)*sin(phi);
-    x0=(polygon->c1[0].x)-(polygon->len)*cos(phi);
+    y0=(polygon->c1[0].y)-R*sin(phi);
+    x0=(polygon->c1[0].x)-R*cos(phi);
     a=sqrt(pow(x0,2)+pow(y0,2));
     for(int i=1; i<(polygon->sides); i++){
         (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(polygon->sides));
