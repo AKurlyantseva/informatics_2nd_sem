@@ -357,3 +357,26 @@ double checkchar(char *i){
     }
  return i2;
 }
+/*#include <iostream>
+using namespace std;
+int main() {
+cout << "Enter the number: " << endl;
+int i; 
+while (true) {  
+    cin<<i;
+    if (!cin)  { cin.clear(); 
+     while (cin.get() != '\n'); 
+     cout << "Error! Retry input\n";   cout << "Enter the number: " << endl; } 
+     else break; }
+    return 0;
+}*/
+void checkchar1(int i){
+while (true) {  
+    if (!cin)  { cin.clear(); 
+     while (cin.get() != '\n'); 
+     cout << "Error! Retry input\n";   
+     cout << "Enter the number: " << endl;
+    cin<<i;
+} 
+     else break; }
+}
