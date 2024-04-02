@@ -23,8 +23,10 @@ void menu(figures *polygon, int *n);
 //void output(figures *polygon);
 void output(figures *polygon, int n);
 void outputcoord(figures *polygon);
-void maxper(figures *polygon, int *n);
-void maxsquare(figures *polygon, int *n);
+//void maxper(figures *polygon, int *n);
+//void maxsquare(figures *polygon, int *n);
+void max(figures *polygon, int n);
+double maxmax(double *a, int n);
 void coord(figures *polygon);
 //int checkcoord(figures *polygon);
 int checkchar1();
@@ -81,43 +83,82 @@ void per(figures *polygon){
     (polygon->p)=(polygon->sides)*(polygon->len);
     cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
-void maxper(figures *polygon, int *n){
-    double maxper=0;
-    if((*n)==0){
+double maxmax(double *a, int n){
+    double max=0;
+    if((n)==0){
         cout<<"Unable to define"<<endl;
     }
     else{
-    for(int i=0; i<(*n); i++){
-        if((maxper-((polygon[i].p)))<0){
-            maxper=((polygon[i].p));
+    for(int i=0;i<n;i++){
+        if(max-(a[i])<0){
+            max=a[i];
         }
-}
-    cout<<"Polygons with maximal perimetr:"<<endl;
-    for(int j=0; j<(*n); j++){
-       if((polygon[j].p)==maxper){
-            cout<<j<<endl;
-}
-}
     }
+   cout<<"Polygons with maximal quality:"<<endl;
+    for(int j=0; j<(n); j++){
+        if((a[j])==max){
+            cout<<j<<endl;}
+    } 
 }
-void maxsquare(figures *polygon, int *n){
-    double maxsq=0;
-    if((*n)==0){
+return max;
+}
+
+void max(figures *polygon, int n){
+    double max=0;
+    cout<<"Choose your option."<<endl;
+            cout<<"1-Define the polygon with maximal square"<<endl;
+            cout<<"2-Define the polygon with maximal perimetr"<<endl;
+            cout<<"3-Return to the main menu"<<endl;
+            int choose2;
+            choose2=checkchar1();
+            newpage();
+            switch(choose2){
+                case 1:
+                maxmax( (&(polygon[0].sq)), n);
+                   /*if((n)==0){
         cout<<"Unable to define"<<endl;
     }
     else{
-    for(int i=0; i<(*n); i++){
-        if((maxsq-((polygon[i].sq)))<0){
-            maxsq=((polygon[i].sq));
+    for(int i=0; i<(n); i++){
+        if((max-((polygon[i].sq)))<0){
+            max=((polygon[i].sq));
         }
 }
     cout<<"Polygons with maximal square:"<<endl;
-    for(int j=0; j<(*n); j++){
-        if((polygon[j].sq)==maxsq){
+    for(int j=0; j<(n); j++){
+        if((polygon[j].sq)==max){
+            cout<<j<<endl;}
+    }
+    }*/
+                    break;
+                case 2:
+                maxmax((&(polygon[0].p)), n);
+                    /*if((n)==0){
+        cout<<"Unable to define"<<endl;
+    }
+    else{
+    for(int i=0; i<(n); i++){
+        if((max-((polygon[i].p)))<0){
+            max=((polygon[i].p));
+        }
+}
+    cout<<"Polygons with maximal perimetr:"<<endl;
+    for(int j=0; j<(n); j++){
+       if((polygon[j].p)==max){
             cout<<j<<endl;
 }
 }
-    }
+}*/
+                    break;
+                    case 3:
+                    cout<<"Returning to the main menu"<<endl;
+                    newpage();
+                    break;
+                default:
+                    cout<<"Error"<<endl;
+                    break;
+                }
+                
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
@@ -262,7 +303,8 @@ void menu(figures *polygon, int *n){
              //pol1=deletefigure(polygon, n);
                 break;
                 case 4:
-            cout<<"Choose your option."<<endl;
+                max(polygon, (*n));
+            /*cout<<"Choose your option."<<endl;
             cout<<"1-Define the polygon with maximal square"<<endl;
             cout<<"2-Define the polygon with maximal perimetr"<<endl;
             cout<<"3-Return to the main menu"<<endl;
@@ -284,7 +326,7 @@ void menu(figures *polygon, int *n){
                 default:
                     cout<<"Error"<<endl;
                     break;
-                }
+                }*/
                 break;
                 case 5:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
