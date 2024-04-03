@@ -64,28 +64,31 @@ void realloc(figures *polygon, int *n){
     //return pol1;
 }
 int checkchar1(){
-int i;
-while (true) {
-    cin>>i;
-    if (!cin)  { cin.clear();
-     while (cin.get() != '\n');
-     cout << "Error! Try again."<<endl;
-     cout << "Enter the number: " << endl; }
-     else break; }
+    int i;
+    while (true) {
+        cin>>i;
+        if (!cin){
+            cin.clear();
+            while (cin.get() != '\n');
+            cout << "Error! Try again."<<endl;
+            cout << "Enter the number: " << endl;
+        }
+        else break;
+    }
     return i;
 }
 void square(figures *polygon){
     (polygon->sq)=((double)(polygon->sides))*pow((polygon->len), 2)/(4*tan(22/(7*((double)(polygon->sides)))));
-    cout << "Polygon" << polygon << " square " << (polygon->sq)<< endl;
+    //cout << "Polygon" << polygon << " square " << (polygon->sq)<< endl;
 }
 void per(figures *polygon){
     //cout << "Polygon" << polygon << " sides: " << polygon->sides << " len: " << polygon->len << endl;
     (polygon->p)=(polygon->sides)*(polygon->len);
-    cout << "Polygon" << polygon << " per " << polygon->p << endl;
+    //cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
 double maxmax(double *a, int n){
     double max=0;
-    if((n)==0){
+    if(n==0){
         cout<<"Unable to define"<<endl;
     }
     else{
@@ -98,13 +101,12 @@ double maxmax(double *a, int n){
     for(int j=0; j<(n); j++){
         if((a[j])==max){
             cout<<j<<endl;}
-    } 
+    }
 }
 return max;
 }
 
 void max(figures *polygon, int n){
-    double max=0;
     cout<<"Choose your option."<<endl;
             cout<<"1-Define the polygon with maximal square"<<endl;
             cout<<"2-Define the polygon with maximal perimetr"<<endl;
@@ -115,40 +117,9 @@ void max(figures *polygon, int n){
             switch(choose2){
                 case 1:
                 maxmax( (&(polygon[0].sq)), n);
-                   /*if((n)==0){
-        cout<<"Unable to define"<<endl;
-    }
-    else{
-    for(int i=0; i<(n); i++){
-        if((max-((polygon[i].sq)))<0){
-            max=((polygon[i].sq));
-        }
-}
-    cout<<"Polygons with maximal square:"<<endl;
-    for(int j=0; j<(n); j++){
-        if((polygon[j].sq)==max){
-            cout<<j<<endl;}
-    }
-    }*/
                     break;
                 case 2:
                 maxmax((&(polygon[0].p)), n);
-                    /*if((n)==0){
-        cout<<"Unable to define"<<endl;
-    }
-    else{
-    for(int i=0; i<(n); i++){
-        if((max-((polygon[i].p)))<0){
-            max=((polygon[i].p));
-        }
-}
-    cout<<"Polygons with maximal perimetr:"<<endl;
-    for(int j=0; j<(n); j++){
-       if((polygon[j].p)==max){
-            cout<<j<<endl;
-}
-}
-}*/
                     break;
                     case 3:
                     cout<<"Returning to the main menu"<<endl;
@@ -158,15 +129,14 @@ void max(figures *polygon, int n){
                     cout<<"Error"<<endl;
                     break;
                 }
-                
+
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
 
     (polygon->c1[0].x)=checkchar1();
     (polygon->c1[0].y)=checkchar1();
-    //int v=-1;
-    /*
+    /*int v=-1;
     v=checkcoord(polygon);
     while(v!=0){
     cout<<"Error. Try again."<<endl;
@@ -279,6 +249,7 @@ void menu(figures *polygon, int *n){
     int choose, it=1;
   //figures *pol1=NULL;
     while(it==1){
+            newpage();
             cout<<"Choose your option:"<<endl;
             cout<<"1-Input new information about a polygon"<<endl;
             cout<<"2-Look through the information"<<endl;
@@ -304,29 +275,6 @@ void menu(figures *polygon, int *n){
                 break;
                 case 4:
                 max(polygon, (*n));
-            /*cout<<"Choose your option."<<endl;
-            cout<<"1-Define the polygon with maximal square"<<endl;
-            cout<<"2-Define the polygon with maximal perimetr"<<endl;
-            cout<<"3-Return to the main menu"<<endl;
-            int choose2;
-            choose2=checkchar1();
-            newpage();
-            switch(choose2){
-                case 1:
-                   maxsquare(polygon, n);
-                    break;
-                case 2:
-                    maxper(polygon, n);
-                    break;
-                case 3:
-                    cout<<"Returning to the main menu"<<endl;
-                    newpage();
-                    it=1;
-                    break;
-                default:
-                    cout<<"Error"<<endl;
-                    break;
-                }*/
                 break;
                 case 5:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
@@ -354,6 +302,6 @@ void menu(figures *polygon, int *n){
                                         cout<<"Error. Try again."<<endl;
                                         break;
                                         }
-                                        newpage();
+                                        //newpage();
  }
 }
