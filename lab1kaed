@@ -954,7 +954,7 @@ void output(figures *polygon, int n);
 void outputcoord(figures *polygon);
 //void maxper(figures *polygon, int *n);
 //void maxsquare(figures *polygon, int *n);
-void max(figures *polygon, int n);
+void max1(figures *polygon, int n);
 double maxmax(double *a, int n);
 void coord(figures *polygon);
 //int checkcoord(figures *polygon);
@@ -1016,26 +1016,26 @@ void per(figures *polygon){
     //cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
 double maxmax(double *a, int n){
-    double max=0;
+    double max1=0;
     if(n==0){
         cout<<"Unable to define"<<endl;
     }
     else{
     for(int i=0;i<n;i++){
-        if(max-(a[i])<0){
-            max=a[i];
+        if(max1-(a[i])<0){
+            max1=a[i];
         }
     }
    cout<<"Polygons with maximal quality:"<<endl;
     for(int j=0; j<(n); j++){
-        if((a[j])==max){
+        if((a[j])==max1){
             cout<<j<<endl;}
     }
 }
-return max;
+return max1;
 }
 
-void max(figures *polygon, int n){
+void max1(figures *polygon, int n){
     cout<<"Choose your option."<<endl;
             cout<<"1-Define the polygon with maximal square"<<endl;
             cout<<"2-Define the polygon with maximal perimetr"<<endl;
@@ -1061,9 +1061,9 @@ void max(figures *polygon, int n){
 
 }
 int checkcoord(figures *polygon){
-    double R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
+    double R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
     double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
-    int v;
+    int v=-1;
     if(R>at1){
         cout<<"Error.Try again"<<endl;
         v=-1;
@@ -1075,7 +1075,6 @@ int checkcoord(figures *polygon){
 }
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
-
     (polygon->c1[0].x)=checkchar1();
     (polygon->c1[0].y)=checkchar1();
     int v=-1;
@@ -1204,7 +1203,7 @@ void menu(figures *polygon, int *n){
              //pol1=deletefigure(polygon, n);
                 break;
                 case 4:
-                max(polygon, (*n));
+                max1(polygon, (*n));
                 break;
                 case 5:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
@@ -1236,5 +1235,4 @@ void menu(figures *polygon, int *n){
  }
 }
 
-    return i;
-}
+
