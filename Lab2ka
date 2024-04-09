@@ -21,7 +21,9 @@ public:
       power=t_power;
       range=t_range;
     }
-    ~Vehicle();
+    ~Vehicle(){
+cout<<"Vehicle has been deleted!"<<endl;
+}
 };
 void menu(Vehicle *car, int n);
 double trace();
