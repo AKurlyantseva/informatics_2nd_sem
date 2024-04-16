@@ -131,7 +131,7 @@ void max1(figures *polygon, int n){
                 }
 
 }
-void coord(figures *(polygon)){
+void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
 
     (polygon->c1[0].x)=checkchar1();
@@ -156,15 +156,17 @@ void coord(figures *(polygon)){
 }
 }
 int checkcoord(figures *polygon){
+    int v;
     double R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
     double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
     if(R>at1){
         cout<<"Error.Try again"<<endl;
-        return -1;
+        v=-1;
     }
     else{
-        return 0;
+        v=0;
     }
+    return v;
 }
 void input(figures *polygon, int *n){
 //figures *input(figures *polygon, int *n){
