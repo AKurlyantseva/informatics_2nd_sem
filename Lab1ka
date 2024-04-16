@@ -131,19 +131,34 @@ void max1(figures *polygon, int n){
                 }
 
 }
+int checkcoord(figures *polygon){
+    int v;
+    double R=(polygon->len)/(2*sin(22/(7*((double)polygon->sides))));
+    double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
+    /*cout << "R: " << R;
+    cout << "at1: " << at1;*/
+    if(R>at1){
+        cout<<"Error.Try again"<<endl;
+        v=-1;
+    }
+    else{
+        v=0;
+    }
+    return v;
+}
 void coord(figures *polygon){
     cout<<"Input coordinates of the first point"<<endl;
 
     (polygon->c1[0].x)=checkchar1();
     (polygon->c1[0].y)=checkchar1();
-    /*int v=-1;
+    int v=-1;
     v=checkcoord(polygon);
     while(v!=0){
-    cout<<"Error. Try again."<<endl;
+    //cout<<"Error. Try again."<<endl;
     (polygon->c1[0].x)=checkchar1();
     (polygon->c1[0].y)=checkchar1();
     v=checkcoord(polygon);
-    }*/
+    }
     double x0, y0, phi, R;
     R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
     phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
@@ -154,19 +169,6 @@ void coord(figures *polygon){
         (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon->sides));
         (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon->sides));
 }
-}
-int checkcoord(figures *polygon){
-    int v;
-    double R=(polygon->len)/(2*sin(22/(7*(polygon->sides))));
-    double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
-    if(R>at1){
-        cout<<"Error.Try again"<<endl;
-        v=-1;
-    }
-    else{
-        v=0;
-    }
-    return v;
 }
 void input(figures *polygon, int *n){
 //figures *input(figures *polygon, int *n){
