@@ -26,7 +26,7 @@ void outputcoord(figures *polygon);
 //void maxper(figures *polygon, int *n);
 //void maxsquare(figures *polygon, int *n);
 void max1(figures *polygon, int n);
-double maxmax(double *a, int n);
+void maxmax(double *a, int n);
 void coord(figures *polygon);
 //int checkcoord(figures *polygon);
 int checkchar1();
@@ -86,7 +86,7 @@ void per(figures *polygon){
     (polygon->p)=(polygon->sides)*(polygon->len);
     //cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
-double maxmax(double *a, int n){
+void maxmax(double *a, int n){
     double max1=0;
     if(n==0){
         cout<<"Unable to define"<<endl;
@@ -95,15 +95,16 @@ double maxmax(double *a, int n){
     for(int i=0;i<n;i++){
         if(max1-(a[i])<0){
             max1=a[i];
+            //cout<<max1;
         }
     }
    cout<<"Polygons with maximal quality:"<<endl;
     for(int j=0; j<(n); j++){
-        if((a[j])==max1){
+        if(fabs(a[j]-max1)<(double)(1e-6)){
             cout<<j<<endl;}
     }
 }
-return max1;
+return ;
 }
 
 void max1(figures *polygon, int n){
