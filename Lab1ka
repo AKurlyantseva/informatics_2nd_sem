@@ -22,12 +22,12 @@ void input(figures *polygon, int *n);
 void menu(figures *polygon, int *n);
 //void output(figures *polygon);
 void output(figures *polygon, int n);
-void outputcoord(figures *polygon);
+void outputcoord(figures *polygon, int n);
 //void maxper(figures *polygon, int *n);
 //void maxsquare(figures *polygon, int *n);
 void max1(figures *polygon, int n);
 void maxmax(double *a, int n);
-void coord(figures *polygon);
+void coord(figures *polygon, int n);
 //int checkcoord(figures *polygon);
 int checkchar1();
 void newpage();
@@ -100,7 +100,8 @@ void maxmax(double *a, int n){
     }
    cout<<"Polygons with maximal quality:"<<endl;
     for(int j=0; j<(n); j++){
-        if(fabs(a[j]-max1)<(double)(1e-6)){
+        if(fabs(a[j]-max1)<(double)(1e-05)){
+        //if(fabs(a[j]-max1)<(1e-5)){
             cout<<j<<endl;}
     }
 }
@@ -147,28 +148,28 @@ int checkcoord(figures *polygon){
     }
     return v;
 }
-void coord(figures *polygon){
+void coord(figures *polygon, int n){
     cout<<"Input coordinates of the first point"<<endl;
 
-    (polygon->c1[0].x)=checkchar1();
-    (polygon->c1[0].y)=checkchar1();
+    (polygon[n].c1[0].x)=checkchar1();
+    (polygon[n].c1[0].y)=checkchar1();
     int v=-1;
     v=checkcoord(polygon);
     while(v!=0){
     //cout<<"Error. Try again."<<endl;
-    (polygon->c1[0].x)=checkchar1();
-    (polygon->c1[0].y)=checkchar1();
+    (polygon[n].c1[0].x)=checkchar1();
+    (polygon[n].c1[0].y)=checkchar1();
     v=checkcoord(polygon);
     }
     double x0, y0, phi, R;
-    R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
-    phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
-    y0=(polygon->c1[0].y)-R*sin(phi);
-    x0=(polygon->c1[0].x)-R*cos(phi);
+    R=(polygon[n].len)/(2*sin(22/(7*(double)(polygon[n].sides))));
+    phi=atan((polygon[n].c1[0].y)/(polygon[n].c1[0].x));
+    y0=(polygon[n].c1[0].y)-R*sin(phi);
+    x0=(polygon[n].c1[0].x)-R*cos(phi);
     //a=sqrt(pow(x0,2)+pow(y0,2));
-    for(int i=1; i<(polygon->sides); i++){
-        (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon->sides));
-        (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon->sides));
+    for(int i=1; i<(polygon[n].sides); i++){
+        (polygon[n].c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon[n].sides));
+        (polygon[n].c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon[n].sides));
 }
 }
 void input(figures *polygon, int *n){
@@ -190,17 +191,17 @@ void input(figures *polygon, int *n){
         polygon[(*n)-1].len=checkchar1();
         per(&polygon[(*n)-1]);
         square(&polygon[(*n)-1]);
-        coord(&polygon[(*n)-1]);
+        coord(polygon, ((*n)-1));
         cout<<"Successfully added"<<endl;
         it=0;
     }
     }
   //return pol1;
 }
-void outputcoord(figures *polygon){
+void outputcoord(figures *polygon, int n){
     cout<<"Coordinates:"<<endl;
-    for(int i=0; i<(polygon->sides); i++){
-        cout<<"("<<polygon->c1[i].x<<";"<<polygon->c1[i].y<<")"<<endl;
+    for(int i=0; i<(polygon[n].sides); i++){
+        cout<<"("<<polygon[n].c1[i].x<<";"<<polygon[n].c1[i].y<<")"<<endl;
     }
 }
 /*void output(figures *polygon){
@@ -220,7 +221,7 @@ void output(figures *polygon, int n){
     cout<<"Polygon"<<i<<endl;
     cout<<"number of sides: "<<(polygon[i].sides)<<endl;
     cout<<"length of sides: "<<(polygon[i].len)<<endl;
-    outputcoord(polygon);
+    outputcoord(polygon, i);
     cout<<"p="<<(polygon[i].p)<<endl;
     cout<<"s="<<(polygon[i].sq)<<endl;
     }
