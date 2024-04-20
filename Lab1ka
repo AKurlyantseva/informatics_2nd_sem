@@ -29,7 +29,7 @@ void max1(figures *polygon, int n);
 void maxmax(double *a, int n);
 void coord(figures *polygon, int n);
 //int checkcoord(figures *polygon);
-int checkchar1();
+double checkchar1();
 void newpage();
 void deletefigure(figures *polygon, int *n);
 //figures *deletefigure(figures *polygon, int *n);
@@ -63,8 +63,8 @@ void realloc(figures *polygon, int *n){
     pol1=new figures[1];
     //return pol1;
 }
-int checkchar1(){
-    int i;
+double checkchar1(){
+    double i;
     while (true) {
         cin>>i;
         if (!cin){
@@ -118,7 +118,7 @@ void max1(figures *polygon, int n){
             newpage();
             switch(choose2){
                 case 1:
-                maxmax( (&(polygon[0].sq)), n);
+                maxmax((&(polygon[0].sq)), n);
                     break;
                 case 2:
                 maxmax((&(polygon[0].p)), n);
