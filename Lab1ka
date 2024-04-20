@@ -15,8 +15,8 @@ struct figures{
 };
 void realloc(figures *polygon, int *n);
 //figures *realloc(figures *polygon, int *n);
-void square(figures *polygon);
-void per(figures *polygon);
+void square(figures *polygon, int n);
+void per(figures *polygon, int n);
 void input(figures *polygon, int *n);
 //figures *input(figures *polygon, int *n);
 void menu(figures *polygon, int *n);
@@ -77,13 +77,13 @@ int checkchar1(){
     }
     return i;
 }
-void square(figures *polygon){
-    (polygon->sq)=((double)(polygon->sides))*pow((polygon->len), 2)/(4*tan(22/(7*((double)(polygon->sides)))));
+void square(figures *polygon, int n){
+    (polygon[n].sq)=((double)(polygon[n].sides))*pow((polygon[n].len), 2)/(4*tan(22/(7*((double)(polygon[n].sides)))));
     //cout << "Polygon" << polygon << " square " << (polygon->sq)<< endl;
 }
-void per(figures *polygon){
+void per(figures *polygon, int n){
     //cout << "Polygon" << polygon << " sides: " << polygon->sides << " len: " << polygon->len << endl;
-    (polygon->p)=(polygon->sides)*(polygon->len);
+    (polygon[n].p)=(polygon[n].sides)*(polygon[n].len);
     //cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
 void maxmax(double *a, int n){
@@ -189,8 +189,8 @@ void input(figures *polygon, int *n){
     else{
         cout<<"Input length"<<endl;
         polygon[(*n)-1].len=checkchar1();
-        per(&polygon[(*n)-1]);
-        square(&polygon[(*n)-1]);
+        per(polygon, (*n)-1);
+        square(polygon, (*n)-1);
         coord(polygon, ((*n)-1));
         cout<<"Successfully added"<<endl;
         it=0;
