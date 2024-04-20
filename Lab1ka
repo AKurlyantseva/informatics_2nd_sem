@@ -133,10 +133,10 @@ void max1(figures *polygon, int n){
                 }
 
 }
-int checkcoord(figures *polygon){
+int checkcoord(figures *polygon, int n){
     int v;
-    double R=(polygon->len)/(2*sin(22/(7*((double)polygon->sides))));
-    double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
+    double R=(polygon[n].len)/(2*sin(22/(7*((double)polygon[n].sides))));
+    double at1=sqrt(pow((polygon[n].c1[0].x),2)+pow((polygon[n].c1[0].y),2));
     /*cout << "R: " << R;
     cout << "at1: " << at1;*/
     if(R>at1){
@@ -154,12 +154,12 @@ void coord(figures *polygon, int n){
     (polygon[n].c1[0].x)=checkchar1();
     (polygon[n].c1[0].y)=checkchar1();
     int v=-1;
-    v=checkcoord(polygon);
+    v=checkcoord(polygon, n);
     while(v!=0){
     //cout<<"Error. Try again."<<endl;
     (polygon[n].c1[0].x)=checkchar1();
     (polygon[n].c1[0].y)=checkchar1();
-    v=checkcoord(polygon);
+    v=checkcoord(polygon, n);
     }
     double x0, y0, phi, R;
     R=(polygon[n].len)/(2*sin(22/(7*(double)(polygon[n].sides))));
