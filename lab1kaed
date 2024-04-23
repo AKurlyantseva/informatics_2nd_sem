@@ -944,21 +944,22 @@ struct figures{
 };
 void realloc(figures *polygon, int *n);
 //figures *realloc(figures *polygon, int *n);
-void square(figures *polygon);
-void per(figures *polygon);
+void square(figures *polygon, int n);
+void per(figures *polygon, int n);
 void input(figures *polygon, int *n);
 //figures *input(figures *polygon, int *n);
 void menu(figures *polygon, int *n);
 //void output(figures *polygon);
 void output(figures *polygon, int n);
-void outputcoord(figures *polygon);
+void outputcoord(figures *polygon, int n);
 //void maxper(figures *polygon, int *n);
 //void maxsquare(figures *polygon, int *n);
+double*array(figures*polygon, int n, int j);
 void max1(figures *polygon, int n);
-double maxmax(double *a, int n);
-void coord(figures *polygon);
+void maxmax(double *a, int n);
+void coord(figures *polygon, int n);
 //int checkcoord(figures *polygon);
-int checkchar1();
+double checkchar1();
 void newpage();
 void deletefigure(figures *polygon, int *n);
 //figures *deletefigure(figures *polygon, int *n);
@@ -992,8 +993,8 @@ void realloc(figures *polygon, int *n){
     pol1=new figures[1];
     //return pol1;
 }
-int checkchar1(){
-    int i;
+double checkchar1(){
+    double i;
     while (true) {
         cin>>i;
         if (!cin){
@@ -1006,16 +1007,34 @@ int checkchar1(){
     }
     return i;
 }
-void square(figures *polygon){
-    (polygon->sq)=((double)(polygon->sides))*pow((polygon->len), 2)/(4*tan(22/(7*((double)(polygon->sides)))));
+void square(figures *polygon, int n){
+    (polygon[n].sq)=((double)(polygon[n].sides))*pow((polygon[n].len), 2)/(4*tan(22/(7*((double)(polygon[n].sides)))));
     //cout << "Polygon" << polygon << " square " << (polygon->sq)<< endl;
 }
-void per(figures *polygon){
+void per(figures *polygon, int n){
     //cout << "Polygon" << polygon << " sides: " << polygon->sides << " len: " << polygon->len << endl;
-    (polygon->p)=(polygon->sides)*(polygon->len);
+    (polygon[n].p)=(polygon[n].sides)*(polygon[n].len);
     //cout << "Polygon" << polygon << " per " << polygon->p << endl;
 }
-double maxmax(double *a, int n){
+double*array(figures*polygon, int n, int j){
+    double *a=new double[n];
+    switch(j){
+        case 1:
+        for(int i=0;i<n;i++){
+            a[i]=polygon[i].sq;
+        }
+        break;
+        case 2:
+        for(int i=0;i<n;i++){
+            a[i]=polygon[i].p;
+        }
+        break;
+        default:
+        cout<<"Error"<<endl;
+    }
+    return a;
+}
+void maxmax(double *a, int n){
     double max1=0;
     if(n==0){
         cout<<"Unable to define"<<endl;
@@ -1024,15 +1043,17 @@ double maxmax(double *a, int n){
     for(int i=0;i<n;i++){
         if(max1-(a[i])<0){
             max1=a[i];
+            //cout<<max1;
         }
     }
    cout<<"Polygons with maximal quality:"<<endl;
     for(int j=0; j<(n); j++){
-        if((a[j])==max1){
+        if(fabs(a[j]-max1)<(double)(1e-05)){
+        //if(fabs(a[j]-max1)<(1e-5)){
             cout<<j<<endl;}
     }
 }
-return max1;
+return ;
 }
 
 void max1(figures *polygon, int n){
@@ -1043,12 +1064,15 @@ void max1(figures *polygon, int n){
             int choose2;
             choose2=checkchar1();
             newpage();
+            double *a=new double[n];
             switch(choose2){
                 case 1:
-                maxmax( (&(polygon[0].sq)), n);
+                a=array(polygon, n, 1);
+                maxmax(a, n);
                     break;
                 case 2:
-                maxmax((&(polygon[0].p)), n);
+                a=array(polygon, n, 2);
+                maxmax(a, n);
                     break;
                     case 3:
                     cout<<"Returning to the main menu"<<endl;
@@ -1060,10 +1084,12 @@ void max1(figures *polygon, int n){
                 }
 
 }
-int checkcoord(figures *polygon){
-    double R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
-    double at1=sqrt(pow((polygon->c1[0].x),2)+pow((polygon->c1[0].y),2));
-    int v=-1;
+int checkcoord(figures *polygon, int n){
+    int v;
+    double R=(polygon[n].len)/(2*sin(22/(7*((double)polygon[n].sides))));
+    double at1=sqrt(pow((polygon[n].c1[0].x),2)+pow((polygon[n].c1[0].y),2));
+    /*cout << "R: " << R;
+    cout << "at1: " << at1;*/
     if(R>at1){
         cout<<"Error.Try again"<<endl;
         v=-1;
@@ -1073,26 +1099,28 @@ int checkcoord(figures *polygon){
     }
     return v;
 }
-void coord(figures *polygon){
+void coord(figures *polygon, int n){
     cout<<"Input coordinates of the first point"<<endl;
-    (polygon->c1[0].x)=checkchar1();
-    (polygon->c1[0].y)=checkchar1();
+
+    (polygon[n].c1[0].x)=checkchar1();
+    (polygon[n].c1[0].y)=checkchar1();
     int v=-1;
-    v=checkcoord(polygon);
+    v=checkcoord(polygon, n);
     while(v!=0){
-    (polygon->c1[0].x)=checkchar1();
-    (polygon->c1[0].y)=checkchar1();
-    v=checkcoord(polygon);
+    //cout<<"Error. Try again."<<endl;
+    (polygon[n].c1[0].x)=checkchar1();
+    (polygon[n].c1[0].y)=checkchar1();
+    v=checkcoord(polygon, n);
     }
     double x0, y0, phi, R;
-    R=(polygon->len)/(2*sin(22/(7*(double)(polygon->sides))));
-    phi=atan((polygon->c1[0].y)/(polygon->c1[0].x));
-    y0=(polygon->c1[0].y)-R*sin(phi);
-    x0=(polygon->c1[0].x)-R*cos(phi);
+    R=(polygon[n].len)/(2*sin(22/(7*(double)(polygon[n].sides))));
+    phi=atan((polygon[n].c1[0].y)/(polygon[n].c1[0].x));
+    y0=(polygon[n].c1[0].y)-R*sin(phi);
+    x0=(polygon[n].c1[0].x)-R*cos(phi);
     //a=sqrt(pow(x0,2)+pow(y0,2));
-    for(int i=1; i<(polygon->sides); i++){
-        (polygon->c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon->sides));
-        (polygon->c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon->sides));
+    for(int i=1; i<(polygon[n].sides); i++){
+        (polygon[n].c1[i].x)=x0+R*cos(phi+44/7*i/(double)(polygon[n].sides));
+        (polygon[n].c1[i].y)=y0+R*sin(phi+44/7*i/(double)(polygon[n].sides));
 }
 }
 void input(figures *polygon, int *n){
@@ -1112,19 +1140,19 @@ void input(figures *polygon, int *n){
     else{
         cout<<"Input length"<<endl;
         polygon[(*n)-1].len=checkchar1();
-        per(&polygon[(*n)-1]);
-        square(&polygon[(*n)-1]);
-        coord(&polygon[(*n)-1]);
+        per(polygon, (*n)-1);
+        square(polygon, (*n)-1);
+        coord(polygon, ((*n)-1));
         cout<<"Successfully added"<<endl;
         it=0;
     }
     }
   //return pol1;
 }
-void outputcoord(figures *polygon){
+void outputcoord(figures *polygon, int n){
     cout<<"Coordinates:"<<endl;
-    for(int i=0; i<(polygon->sides); i++){
-        cout<<"("<<polygon->c1[i].x<<";"<<polygon->c1[i].y<<")"<<endl;
+    for(int i=0; i<(polygon[n].sides); i++){
+        cout<<"("<<polygon[n].c1[i].x<<";"<<polygon[n].c1[i].y<<")"<<endl;
     }
 }
 /*void output(figures *polygon){
@@ -1144,7 +1172,7 @@ void output(figures *polygon, int n){
     cout<<"Polygon"<<i<<endl;
     cout<<"number of sides: "<<(polygon[i].sides)<<endl;
     cout<<"length of sides: "<<(polygon[i].len)<<endl;
-    outputcoord(polygon);
+    outputcoord(polygon, i);
     cout<<"p="<<(polygon[i].p)<<endl;
     cout<<"s="<<(polygon[i].sq)<<endl;
     }
@@ -1234,5 +1262,3 @@ void menu(figures *polygon, int *n){
                                         //newpage();
  }
 }
-
-
