@@ -2,37 +2,41 @@
 #include <cmath>
 using namespace std;
 class Vehicle{
- double count_speed(double power, int tyres, double v);
-//void count_time(double tr, double speed);
- double count_con(double power);
-int count_ref(double v, double con, double tr);
+    double count_speed(double power, int tyres, double v);
+    //void count_time(double tr, double speed);
+    double count_con(double power);
+    int count_ref(double v, double con, double tr);
 //char name[100];
 //int tyres, refuel;
 /*double time, power, con, range;
 double v;*/
 public:
- int tyres, refuel;
- double speed;
- double time1, power, con, range;
- double v;
- //double count_con(double power);
- //double time, speed, power, con;
- char name[100];
- void count_time(double tr, double speed);
- Vehicle(int t_tyres, double t_v, double t_power, double t_range){
- tyres=t_tyres;
- v=t_v;
- power=t_power;
- range=t_range;
- con=count_con(power);
- speed=count_speed(power,tyres,v);
- }
- Vehicle(){
- v=tyres=power=range=0;}
- ~Vehicle(){
-cout<<"Vehicle has been deleted!"<<endl;
-}
-void output(int n);
+    int tyres, refuel;
+    double speed;
+    double time1, power, con, range;
+    double v;
+    //double count_con(double power);
+    //double time, speed, power, con;
+    char name[100];
+    void count_time(double tr, double speed);
+
+    Vehicle(int t_tyres, double t_v, double t_power, double t_range){
+        tyres=t_tyres;
+        v=t_v;
+        power=t_power;
+        range=t_range;
+        con=count_con(power);
+        speed=count_speed(power,tyres,v);
+        time1=0;
+    }
+
+    Vehicle(){v=tyres=power=range=time1=0;}
+
+    ~Vehicle(){
+        cout<<"Vehicle has been deleted!"<<endl;
+    }
+
+    void output(int n);
 };
 double Vehicle::count_con(double power){
     double Q;
@@ -72,18 +76,10 @@ int Vehicle::count_ref(double v, double con, double tr){
 void menu(Vehicle *car);
 Vehicle input();
 double checkchar1();
-//void check2(double c);
 int main()
 {
  Vehicle car[10];
  menu(car);
- /*int n=2;
- for(int i=0; i<n; i++)
- {
- car[i]=input();}
- for(int i=0; i<n; i++)
- {
- car[i].output(i);}*/
  return 0;
 
 }
@@ -106,14 +102,13 @@ Vehicle input(){
  return car;
 }
 void trace_results(Vehicle *car, int n){
-    Vehicle tmp[n+1];
+    Vehicle tmp[n];
     Vehicle tm;
-    for(int k=0; k<(n+1); k++){
+    for(int k=0; k<(n); k++){
     tmp[k]=car[k];
     }
-    for(int i=1; i<(n+1); i++){
-        for(int j=1; j<(n+1); j++){
-            ///
+    for(int i=1; i<(n); i++){
+        for(int j=1; j<(n); j++){
             if(tmp[i].time1>tmp[j].time1){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
@@ -122,8 +117,8 @@ void trace_results(Vehicle *car, int n){
         }
     }
     cout<<"Results:"<<endl;
-    for(int r=0; r<(n+1); r++){
-        cout<<(r+1)<<"."<<tmp[r].name<<endl;
+    for(int r=0; r<(n); r++){
+        cout<<(r)<<"."<<tmp[r].name<<" time: "<< tmp[r].time1<<endl;
     }
 }
 void newpage(){
@@ -142,13 +137,10 @@ double tr=0;
             cout<<"4-Count trace"<<endl;
             cout<<"5-Output results"<<endl;
             cout<<"6-Quit"<<endl;
-            cin>>choose;
+            choose=checkchar1();
     newpage();
     switch(choose){
     case 1:
-        /*for(int i=0; i<n; i++){
-                Vehicle car[i];
-        }*/
             car[n]=input();
             n++;
         break;
@@ -157,12 +149,13 @@ double tr=0;
                 cout<<"Empty"<<endl;
             }
             else{
-            for(int i=0;i<(n+1);i++){
+            for(int i=0;i<(n);i++){
             car[i].output(i);}
             }
             break;
             case 3:
-                cin>>tr;
+                cout<<"Input trace len"<<endl;
+                tr=checkchar1();
                 cout<<"Trace length is "<<tr<<endl;
                 break;
                 case 4:
@@ -170,17 +163,26 @@ double tr=0;
                     cout<<"Wouldn't you like to input trace length first?"<<endl;
                     cin>>tr;
                 }
-                for(int i=0; i<(n+1); i++){
+                for(int i=0; i<(n); i++){
                  car[i].count_time(tr, car[i].speed);}
                  cout<<"Success"<<endl;
                 break;
                 case 5:
+                    if(car[0].time1==0){
+                            cout<<"You should have counted time first. I am doing it myself."<<endl;
+                    if(tr==0){
+                    cout<<"Wouldn't you like to input trace length first?"<<endl;
+                    cin>>tr;
+                }
+                        for(int i=0; i<(n); i++){
+                 car[i].count_time(tr, car[i].speed);}
+                    }
                      trace_results(car, n);
                     break;
                 case 6:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
                     int choose1;
-                    cin>>choose1;
+                    choose1=checkchar1();
                     newpage();
                     switch(choose1){
                         case 1:
@@ -203,18 +205,6 @@ double tr=0;
                                         newpage();
     }
 }
-/*void check2(double c){
-    int it=-1;
-    while(it!=0){
-    if(c<=0){
-        it=-1;
-        cout<<"Error. Try again"<<endl;
-    }
-    else{
-        it=0;
-    }
-    }
-}*/
 double checkchar1(){
     double i;
     while (true) {
