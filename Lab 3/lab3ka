@@ -1,0 +1,272 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+/*Поля данных:
+текущий пробег автомобиля; v , but count
+текущая скорость ТС - функция от мощности, статуса колес и оставшегося топлива; count
+Методы:
+прохождение по трассе; count
+Класс "колесо". У каждого ТС - массив экземпляров класса ///
+Поля данных:
+текущий пробег колеса; v, but count (range/tyres)
+Методы:
+проверка статуса колеса. Вероятность повреждения увеличивается с увеличением пробега колеса; count
+Класс "топливная система"
+
+Методы:
+вычисление текущего остатка топлива. count*/
+class Engine
+{
+    double count_con(double power);
+public:
+    double power, con;
+};
+class FS
+{
+public:
+    double v, fleft;
+    friend double count_fleft(double v, ///);
+};
+class Wheel
+{
+
+public:
+    double tyre_range;
+    bool status;
+    bool check_status(double tyre_range);
+};
+class Vehicle: public Wheel, public FS, public Engine{
+    double count_speed(double power, int tyres, double v);
+    int count_ref(double v, double con, double tr);
+public:
+    int tyres;
+    int refuel;
+    double speed, range;
+    double time1;
+    char name[100];
+    void count_time(double tr, double speed);
+
+    Vehicle(int t_tyres, double t_v, double t_power){
+        tyres=t_tyres;
+        v=t_v;
+        power=t_power;
+        //range=t_range;
+        con=count_con(power);
+        speed=count_speed(power,tyres,v);
+        time1=0;
+    }
+
+    Vehicle(){v=tyres=power=time1=0;}
+
+    ~Vehicle(){
+        cout<<"Vehicle has been deleted!"<<endl;
+    }
+
+    void output(int n);
+};
+double Vehicle::count_con(double power){
+    double Q;
+    Q=(0.85)*power/(0.73);
+    return Q;
+}
+void Vehicle::output(int n){
+cout<<n<<endl;
+cout<<"Name: "<<name<<endl;
+cout<<"Tyres: "<<tyres<<endl;
+cout<<"Capacity: "<<v<<endl;
+//cout<<"Range: "<<range<<endl;
+cout<<"Power: "<<power<<endl;
+cout<<"Speed: "<<speed<<endl;
+cout<<"Consumption: "<<con<<endl;
+}
+double Vehicle::count_speed(double power, int tyres, double v){
+double speed;
+speed=power/(0,730*v*10*(double)tyres);
+return speed;
+}
+void Vehicle::count_time(double tr, double speed){
+    //double time1;
+    time1=tr/speed;
+    //return time1;
+}
+int Vehicle::count_ref(double v, double con, double tr){
+    int n;
+    double n1;
+    n1=tr/(v/con);
+    n=(int)n1;
+    if((n-n1)<0){
+        n=n+1;
+    }
+    return n;
+}
+/*class Engine:public Vehicle
+{
+    double count_con(double power);
+public:
+    double power, con;
+};
+class FS:public Vehicle
+{
+public:
+    double v, fleft;
+    friend double count_fleft(double v, ///);
+};
+class Wheel: public Vehicle
+{
+
+public:
+    double tyre_range;
+    bool status;
+    bool check_status(double tyre_range);
+};*/
+void menu(Vehicle *car);
+Vehicle input();
+double checkchar1();
+int main()
+{
+ Vehicle car[10];
+ menu(car);
+ return 0;
+
+}
+Vehicle input(){
+    int t_tyres;
+ double t_v;
+ double t_power;
+ //double t_range;
+ cout << "Input number of tyres" << endl;
+ t_tyres=(int)checkchar1();
+ cout << "Input capacity" << endl;
+ t_v=checkchar1();
+ cout << "Input power" << endl;
+ t_power=checkchar1();
+ /*cout << "Input range" << endl;
+ t_range=checkchar1();*/
+ cout << "Input name" << endl;
+ Vehicle car(t_tyres, t_v, t_power);
+ cin>>car.name;
+ return car;
+}
+void trace_results(Vehicle *car, int n){
+    Vehicle tmp[n];
+    Vehicle tm;
+    for(int k=0; k<(n); k++){
+    tmp[k]=car[k];
+    }
+    for(int i=1; i<(n); i++){
+        for(int j=1; j<(n); j++){
+            if(tmp[i].time1>tmp[j].time1){
+                tm=tmp[i];
+                tmp[i]=tmp[j];
+                tmp[j]=tm;
+            }
+        }
+    }
+    cout<<"Results:"<<endl;
+    for(int r=0; r<(n); r++){
+        cout<<(r)<<"."<<tmp[r].name<<endl;
+        cout<<" time: ";
+        cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+    }
+}
+void newpage(){
+    int a;
+    cout<<"Press any key (number, symbol or letter) and then enter to continue"<<endl;
+    cin>>a;
+    for(int i=0; i<120; i++){
+        cout<<endl;
+    }
+}
+void menu(Vehicle *car){
+int choose, it=1, n=0;
+double tr=0;
+    while(it==1){
+            cout<<"Choose your option:"<<endl;
+            cout<<"1-Input new information about vehicles"<<endl;
+            cout<<"2-Look through the information"<<endl;
+            cout<<"3-Input trace length"<<endl;
+            cout<<"4-Count trace"<<endl;
+            cout<<"5-Output results"<<endl;
+            cout<<"6-Quit"<<endl;
+            choose=checkchar1();
+    newpage();
+    switch(choose){
+    case 1:
+            car[n]=input();
+            n++;
+        break;
+        case 2:
+            if(n==0){
+                cout<<"Empty"<<endl;
+            }
+            else{
+            for(int i=0;i<(n);i++){
+            car[i].output(i);}
+            }
+            break;
+            case 3:
+                cout<<"Input trace len"<<endl;
+                tr=checkchar1();
+                cout<<"Trace length is "<<tr<<endl;
+                break;
+                case 4:
+                if(tr==0){
+                    cout<<"Wouldn't you like to input trace length first?"<<endl;
+                    cin>>tr;
+                }
+                for(int i=0; i<(n); i++){
+                 car[i].count_time(tr, car[i].speed);}
+                 cout<<"Success"<<endl;
+                break;
+                case 5:
+                    if(car[0].time1==0){
+                            cout<<"You should have counted time first. I am doing it myself."<<endl;
+                    if(tr==0){
+                    cout<<"Wouldn't you like to input trace length first?"<<endl;
+                    cin>>tr;
+                }
+                        for(int i=0; i<(n); i++){
+                 car[i].count_time(tr, car[i].speed);}
+                    }
+                     trace_results(car, n);
+                    break;
+                case 6:
+                    cout<<"Are you sure? (1-yes, 2-no)"<<endl;
+                    int choose1;
+                    choose1=checkchar1();
+                    newpage();
+                    switch(choose1){
+                        case 1:
+                            cout<<"The end"<<endl;
+                            newpage();
+                            it=0;
+                            break;
+                            case 2:
+                                it=1;
+                                break;
+                                default:
+                                    cout<<"Error"<<endl;
+                                    break;
+                                    }
+                                    break;
+                                    default:
+                                        cout<<"Error. Try again."<<endl;
+                                        break;
+                                        }
+                                        newpage();
+    }
+}
+double checkchar1(){
+    double i;
+    while (true) {
+        cin>>i;
+        if (!cin||(i<=0)){
+            cin.clear();
+            while (cin.get() != '\n');
+            cout << "Error! Try again."<<endl;
+            cout << "Enter the number: " << endl;
+        }
+        else break;
+    }
+    return i;
+}
