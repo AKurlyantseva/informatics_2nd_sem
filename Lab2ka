@@ -13,24 +13,24 @@ double v;*/
 public:
     int tyres, refuel;
     double speed;
-    double time1, power, con, range;
+    double time1, power, con;
     double v;
     //double count_con(double power);
     //double time, speed, power, con;
     char name[100];
     void count_time(double tr, double speed);
 
-    Vehicle(int t_tyres, double t_v, double t_power, double t_range){
+    Vehicle(int t_tyres, double t_v, double t_power){
         tyres=t_tyres;
         v=t_v;
         power=t_power;
-        range=t_range;
+        //range=t_range;
         con=count_con(power);
         speed=count_speed(power,tyres,v);
         time1=0;
     }
 
-    Vehicle(){v=tyres=power=range=time1=0;}
+    Vehicle(){v=tyres=power=time1=0;}
 
     ~Vehicle(){
         cout<<"Vehicle has been deleted!"<<endl;
@@ -48,7 +48,7 @@ cout<<n<<endl;
 cout<<"Name: "<<name<<endl;
 cout<<"Tyres: "<<tyres<<endl;
 cout<<"Capacity: "<<v<<endl;
-cout<<"Range: "<<range<<endl;
+//cout<<"Range: "<<range<<endl;
 cout<<"Power: "<<power<<endl;
 cout<<"Speed: "<<speed<<endl;
 cout<<"Consumption: "<<con<<endl;
@@ -87,17 +87,17 @@ Vehicle input(){
     int t_tyres;
  double t_v;
  double t_power;
- double t_range;
+ //double t_range;
  cout << "Input number of tyres" << endl;
  t_tyres=(int)checkchar1();
  cout << "Input capacity" << endl;
  t_v=checkchar1();
  cout << "Input power" << endl;
  t_power=checkchar1();
- cout << "Input range" << endl;
- t_range=checkchar1();
+ /*cout << "Input range" << endl;
+ t_range=checkchar1();*/
  cout << "Input name" << endl;
- Vehicle car(t_tyres, t_v, t_power, t_range);
+ Vehicle car(t_tyres, t_v, t_power);
  cin>>car.name;
  return car;
 }
@@ -125,7 +125,7 @@ void trace_results(Vehicle *car, int n){
 }
 void newpage(){
     int a;
-    cout<<"Press any key to continue"<<endl;
+    cout<<"Press any key (number, symbol or letter) and then enter to continue"<<endl;
     cin>>a;
     for(int i=0; i<120; i++){
         cout<<endl;
