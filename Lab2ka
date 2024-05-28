@@ -108,8 +108,8 @@ void trace_results(Vehicle *car, int n){
     for(int k=0; k<(n); k++){
     tmp[k]=car[k];
     }
-    for(int i=1; i<(n); i++){
-        for(int j=1; j<(n); j++){
+    for(int i=0; i<(n); i++){
+        for(int j=(n-1); j>i; j--){
             if(tmp[i].time1>tmp[j].time1){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
@@ -128,7 +128,7 @@ void trace_results(Vehicle *car, int n){
     for(int r=0; r<(n); r++){
         cout<<(r)<<"."<<tmp[r].name<<endl;
         cout<<" time: ";
-        cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+        cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
         cout<<"refuel times: "<<tmp[r].refuel<<endl;
     }
 }
