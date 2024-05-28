@@ -135,8 +135,8 @@ void trace_results(Vehicle *car, int n){
 }
 void newpage(){
     int a;
-    cout<<"Press any key (number, symbol or letter) and then enter to continue"<<endl;
-    cin>>a;
+    cout<<"Press any key to continue"<<endl;
+    cin.get();
     for(int i=0; i<120; i++){
         cout<<endl;
     }
