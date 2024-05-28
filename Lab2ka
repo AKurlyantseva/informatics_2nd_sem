@@ -5,7 +5,7 @@ class Vehicle{
     double count_speed(double power, int tyres, double v);
     //void count_time(double tr, double speed);
     double count_con(double power);
-    int count_ref(double v, double con, double tr);
+   // int count_ref(double v, double con, double tr);
 //char name[100];
 //int tyres, refuel;
 /*double time, power, con, range;
@@ -15,6 +15,7 @@ public:
     double speed;
     double time1, power, con;
     double v;
+    int count_ref(double v, double con, double tr);
     //double count_con(double power);
     //double time, speed, power, con;
     char name[100];
@@ -83,7 +84,7 @@ int main()
  return 0;
 
 }
-Vehicle input(){
+void input(Vehicle *car, int *n){
     int t_tyres;
  double t_v;
  double t_power;
@@ -97,9 +98,9 @@ Vehicle input(){
  /*cout << "Input range" << endl;
  t_range=checkchar1();*/
  cout << "Input name" << endl;
- Vehicle car(t_tyres, t_v, t_power);
- cin>>car.name;
- return car;
+ car[(*n)]=car(t_tyres, t_v, t_power);
+ cin>>car[(*n)].name;
+ (*n)++;
 }
 void trace_results(Vehicle *car, int n){
     Vehicle tmp[n];
@@ -114,6 +115,13 @@ void trace_results(Vehicle *car, int n){
                 tmp[i]=tmp[j];
                 tmp[j]=tm;
             }
+            else if(tmp[i].time1==tmp[j].time1){
+                if(tmp[i].refuel>tmp[j].refuel){
+                    tm=tmp[i];
+                    tmp[i]=tmp[j];
+                    tmp[j]=tm;
+                }
+            }
         }
     }
     cout<<"Results:"<<endl;
@@ -121,6 +129,7 @@ void trace_results(Vehicle *car, int n){
         cout<<(r)<<"."<<tmp[r].name<<endl;
         cout<<" time: ";
         cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+        cout<<"refuel times: "<<tmp[r].refuel<<endl;
     }
 }
 void newpage(){
@@ -146,8 +155,8 @@ double tr=0;
     newpage();
     switch(choose){
     case 1:
-            car[n]=input();
-            n++;
+            input(car, &n);
+           // n++;
         break;
         case 2:
             if(n==0){
@@ -169,7 +178,9 @@ double tr=0;
                     cin>>tr;
                 }
                 for(int i=0; i<(n); i++){
-                 car[i].count_time(tr, car[i].speed);}
+                 car[i].count_time(tr, car[i].speed);
+                 car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
+                }
                  cout<<"Success"<<endl;
                 break;
                 case 5:
