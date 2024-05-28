@@ -98,7 +98,7 @@ void input(Vehicle *car, int *n){
  /*cout << "Input range" << endl;
  t_range=checkchar1();*/
  cout << "Input name" << endl;
- car[(*n)]=car(t_tyres, t_v, t_power);
+ car[(*n)]=Vehicle(t_tyres, t_v, t_power);
  cin>>car[(*n)].name;
  (*n)++;
 }
