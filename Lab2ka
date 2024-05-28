@@ -55,7 +55,7 @@ cout<<"Consumption: "<<con<<endl;
 }
 double Vehicle::count_speed(double power, int tyres, double v){
 double speed;
-speed=power/(0,730*v*10*(double)tyres);
+speed=power/(0.730*v*10*(double)tyres);
 return speed;
 }
 void Vehicle::count_time(double tr, double speed){
