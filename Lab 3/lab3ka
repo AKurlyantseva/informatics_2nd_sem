@@ -35,10 +35,23 @@ public:
     bool status;
     bool check_status(double tyre_range);
 };
-class Vehicle: public Wheel, public FS, public Engine{
+bool Wheel::check_status(double tyre_range){
+     bool status;
+     int k=0.005;
+     k=tyre_range*k;
+     if(k>=1){
+        status=false;
+     }
+     else {
+        status=true;
+     }
+     return status;
+}
+class Vehicle: public FS, public Engine{
     double count_speed(double power, int tyres, double v);
     int count_ref(double v, double con, double tr);
 public:
+    Wheel c1[100];
     int tyres;
     int refuel;
     double speed, range;
