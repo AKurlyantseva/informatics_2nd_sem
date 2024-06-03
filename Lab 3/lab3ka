@@ -71,8 +71,9 @@ public:
     double speed, range;
     double time1;
     char name[100];
-    void count_time(double tr, double speed, Wheels *c1, int tyres, double power, double v, double con);
-double Vehicle::count_speed(double power, int tyres, Whell *c1){
+    void count_time(double tr, double speed, Wheel *c1, int tyres, double power, double v, double con);
+    };
+double Vehicle::count_speed(double power, int tyres, Wheel *c1){
     double speed;
     int c=0;
     for(int i=0; i<tyres; i++){
