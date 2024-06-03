@@ -82,7 +82,7 @@ double Vehicle::count_speed(double power, int tyres, Whell *c1){
          c+=1;
        }
     }
-    speed=power/(0.730*v*10*(double)tyres*((double)c+1));
+    speed=power/(0.730*v*10*(double)tyres*((double)(c+1)));
     return speed;
 }
     Vehicle(int t_tyres, double t_v, double t_power){
