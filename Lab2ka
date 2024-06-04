@@ -84,7 +84,7 @@ int main()
  return 0;
 
 }
-void input(Vehicle *car, int *n){
+Vehicle input(){
     int t_tyres;
  double t_v;
  double t_power;
@@ -98,9 +98,9 @@ void input(Vehicle *car, int *n){
  /*cout << "Input range" << endl;
  t_range=checkchar1();*/
  cout << "Input name" << endl;
- car[(*n)]=Vehicle(t_tyres, t_v, t_power);
- cin>>car[(*n)].name;
- (*n)++;
+ Vehicle car(t_tyres, t_v, t_power);
+ cin>>car.name;
+ return car;
 }
 void trace_results(Vehicle *car, int n){
     Vehicle tmp[n];
@@ -108,8 +108,8 @@ void trace_results(Vehicle *car, int n){
     for(int k=0; k<(n); k++){
     tmp[k]=car[k];
     }
-    for(int i=1; i<(n); i++){
-        for(int j=1; j<(n); j++){
+    for(int i=0; i<(n); i++){
+        for(int j=(n-1); j>i; j--){
             if(tmp[i].time1>tmp[j].time1){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
@@ -128,14 +128,15 @@ void trace_results(Vehicle *car, int n){
     for(int r=0; r<(n); r++){
         cout<<(r)<<"."<<tmp[r].name<<endl;
         cout<<" time: ";
-        cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+       // cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+       cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;
         cout<<"refuel times: "<<tmp[r].refuel<<endl;
     }
 }
 void newpage(){
     int a;
-    cout<<"Press any key (number, symbol or letter) and then enter to continue"<<endl;
-    cin>>a;
+    cout<<"Press enter to continue"<<endl;
+    cin.get();
     for(int i=0; i<120; i++){
         cout<<endl;
     }
@@ -155,8 +156,8 @@ double tr=0;
     newpage();
     switch(choose){
     case 1:
-            input(car, &n);
-           // n++;
+            car[n]=input();
+            n++;
         break;
         case 2:
             if(n==0){
@@ -173,6 +174,10 @@ double tr=0;
                 cout<<"Trace length is "<<tr<<endl;
                 break;
                 case 4:
+                if(n==0){
+                        cout<<"Empty"<<endl;
+                    }
+                else{
                 if(tr==0){
                     cout<<"Wouldn't you like to input trace length first?"<<endl;
                     cin>>tr;
@@ -182,8 +187,13 @@ double tr=0;
                  car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
                 }
                  cout<<"Success"<<endl;
+                }
                 break;
                 case 5:
+                    if(n==0){
+                        cout<<"Empty"<<endl;
+                    }
+                    else{
                     if(car[0].time1==0){
                             cout<<"You should have counted time first. I am doing it myself."<<endl;
                     if(tr==0){
@@ -194,6 +204,7 @@ double tr=0;
                  car[i].count_time(tr, car[i].speed);}
                     }
                      trace_results(car, n);
+                    }
                     break;
                 case 6:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
