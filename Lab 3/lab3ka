@@ -14,12 +14,19 @@ class Engine
     public:
         void count_con(double power);
         double power, con;
+        Engine(){ power=0;}
+        Engine(double t_power){
+          power=t_power;
+          count_con(power);}
 };
 class FS
 {
 public:
     double v, fleft;
     void count_fleft(double v, double range, double con);
+    FS(){v=0;}
+    FS(double t_v){
+    v=t_v;}
 };
 void FS::count_fleft(double v, double range, double con){
      //double fleft;
@@ -40,6 +47,8 @@ class Wheel
     void count_tyre_range(double tr, double tyre_range);
     bool status;
     bool check_status(double tyre_range);
+    Wheel(){tyre_range=0;
+            status=true;}
 };
 void Wheel::count_tyre_range(double tr, double tyre_range){
     (tyre_range)+=tr;
