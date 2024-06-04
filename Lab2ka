@@ -4,7 +4,7 @@ using namespace std;
 class Vehicle{
     double count_speed(double power, int tyres, double v);
     //void count_time(double tr, double speed);
-    double count_con(double power);
+    void count_con(double power);
    // int count_ref(double v, double con, double tr);
 //char name[100];
 //int tyres, refuel;
@@ -26,7 +26,7 @@ public:
         v=t_v;
         power=t_power;
         //range=t_range;
-        con=count_con(power);
+        count_con(power);
         speed=count_speed(power,tyres,v);
         time1=0;
     }
@@ -39,10 +39,10 @@ public:
 
     void output(int n);
 };
-double Vehicle::count_con(double power){
-    double Q;
-    Q=(0.85)*power/(0.73);
-    return Q;
+void Vehicle::count_con(double power){
+    //double Q;
+    con=(0.649)*power;
+    //return Q;
 }
 void Vehicle::output(int n){
 cout<<n<<endl;
@@ -67,10 +67,10 @@ void Vehicle::count_time(double tr, double speed){
 int Vehicle::count_ref(double v, double con, double tr){
     int n;
     double n1;
-    n1=tr/(v/con);
-    n=(int)n1;
-    if((n-n1)<0){
-        n=n+1;
+    n1=tr/(v/(con/100));
+    n=round(n1);
+    if((n-n1)>0){
+        n=n-1;
     }
     return n;
 }
@@ -110,7 +110,7 @@ void trace_results(Vehicle *car, int n){
     }
     for(int i=0; i<(n); i++){
         for(int j=(n-1); j>i; j--){
-            if(tmp[i].time1>tmp[j].time1){
+            if(tmp[i].time1-tmp[j].time1>0){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
                 tmp[j]=tm;
@@ -201,7 +201,9 @@ double tr=0;
                     cin>>tr;
                 }
                         for(int i=0; i<(n); i++){
-                 car[i].count_time(tr, car[i].speed);}
+                 car[i].count_time(tr, car[i].speed);
+                car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
+                }
                     }
                      trace_results(car, n);
                     }
