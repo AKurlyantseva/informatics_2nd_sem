@@ -1,109 +1,33 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-/*Поля данных:
-текущая скорость ТС - функция от мощности, статуса колес и оставшегося топлива; count v?
-Методы:
-прохождение по трассе; count!
-
-Поля данных:
-текущий пробег колеса; v, but count
-*/
-class Engine
-{
-    public:
-        void count_con(double power);
-        double power, con;
-        Engine(){ power=0;}
-        Engine(double t_power){
-          power=t_power;
-          count_con(power);}
-        void output(char c);
-};
-void Engine::output(char c){
-     cout<<"Engine:"<<endl;
-     cout<<"Power: "<<power<<endl;
-     cout<<"Consumption: "<<con<<endl;
-
-}
-class FS
-{
+class Vehicle{
+    double count_speed(double power, int tyres, double v);
+    //void count_time(double tr, double speed);
+    void count_con(double power);
+   // int count_ref(double v, double con, double tr);
+//char name[100];
+//int tyres, refuel;
+/*double time, power, con, range;
+double v;*/
 public:
-    int refuel;
-    double v, fleft;
-    void count_fleft(double v, double range, double con);
-    FS(){v=refuel=0;}
-    FS(double t_v){
-    v=t_v;
-    refuel=0;}
-    void output(double n);
-};
-void FS::output(double n){
-     cout<<"Fuel system:"<<endl;
-     cout<<"Capacity: "<<v<<endl;
-}
-void FS::count_fleft(double v, double range, double con){
-     //double fleft;
-     fleft=v-range*con;
-     if(fleft<=0){
-        cout<<"You have run out of fuel!"<<endl;
-        cout<<"Refueling..."<<endl;
-        fleft=v;
-        refuel+=1;
-     }
-     //return fleft;
-}
-class Wheel
-{
-    public:
-    double t_ware;
-    double count_ware(double tyre_range, int n);
-    double tyre_range;
-    void count_tyre_range(double tr, double tyre_range);
-    bool status;
-    bool check_status(double tyre_range);
-    Wheel(){tyre_range=0;
-            status=true;}
-};
-void Wheel::count_tyre_range(double tr, double tyre_range){
-    (tyre_range)+=tr;
-}
-double Wheel::count_ware(double tyre_range, int n){
-    double t_ware;
-    t_ware=tyre_range/n;
-    return t_ware;
-}
-bool Wheel::check_status(double t_ware){
-     bool status;
-     int k=0.005;
-     k=t_ware*k;
-     if(k>=1){
-        status=false;
-     }
-     else {
-        status=true;
-     }
-     return status;
-}
-class Vehicle: public FS, public Engine{
-    double count_speed(double power, int tyres, Wheel *c1);
-    //int count_ref(double v, double con, double tr);
-public:
-    //int count_ref(double v, double con, double tr);
-    Wheel c1[100];
-    int tyres;
-    //int refuel;
-    double speed, range;
-    double time1;
+    int tyres, refuel;
+    double speed;
+    double time1, power, con;
+    double v;
+    int count_ref(double v, double con, double tr);
+    //double count_con(double power);
+    //double time, speed, power, con;
     char name[100];
-    friend void count_time(double tr, Vehicle &car);
+    void count_time(double tr, double speed);
+
     Vehicle(int t_tyres, double t_v, double t_power){
         tyres=t_tyres;
         v=t_v;
         power=t_power;
-        range=c1[0].tyre_range;
+        //range=t_range;
         count_con(power);
-        speed=count_speed(power,tyres,c1);
+        speed=count_speed(power,tyres,v);
         time1=0;
     }
 
@@ -115,21 +39,10 @@ public:
 
     void output(int n);
 };
-double Vehicle::count_speed(double power, int tyres, Wheel *c1){
-    double speed;
-    int c=0;
-    for(int i=0; i<tyres; i++){
-       c1[i].count_ware(c1[i].tyre_range, ((i/2)+1));
-       c1[i].check_status(c1[i].t_ware);
-       if(c1[i].status==false){
-         c+=1;
-       }
-    }
-    speed=power/(0.730*v*10*(double)tyres*((double)(c+1)));
-    return speed;
-}
-void Engine::count_con(double power){
+void Vehicle::count_con(double power){
+    //double Q;
     con=(0.649)*power;
+    //return Q;
 }
 void Vehicle::output(int n){
 cout<<n<<endl;
@@ -138,28 +51,20 @@ cout<<"Tyres: "<<tyres<<endl;
 cout<<"Capacity: "<<v<<endl;
 //cout<<"Range: "<<range<<endl;
 cout<<"Power: "<<power<<endl;
-cout<<"Maximal speed: "<<speed<<endl;
+cout<<"Speed: "<<speed<<endl;
 cout<<"Consumption: "<<con<<endl;
-/*double i=1/3;
-char c='c';*/
-/*output1('c');
-output1(1/3);*/
 }
-//void Vehicle::count_time(double tr, double speed, Wheel *c1, int tyres, double power, double v, double con){
-void count_time(double tr, Vehicle &car){
-    double tmp_tr=0;
-    while(tmp_tr<=tr){
-        car.speed=car.count_speed(car.power, car.tyres, car.c1);
-        //time1+=(0.5/speed);
-        car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
-        tmp_tr+=0.5;
-        for(int i=0; i<car.tyres; i++){
-            car.c1[i].tyre_range=tmp_tr;
-        }
-        car.time1+=(0.5/car.speed);
-    }
+double Vehicle::count_speed(double power, int tyres, double v){
+double speed;
+speed=power/(0.730*v*10*(double)tyres);
+return speed;
 }
-/*int Vehicle::count_ref(double v, double con, double tr){
+void Vehicle::count_time(double tr, double speed){
+    //double time1;
+    time1=tr/speed;
+    //return time1;
+}
+int Vehicle::count_ref(double v, double con, double tr){
     int n;
     double n1;
     n1=tr/(v/(con/100));
@@ -168,27 +73,7 @@ void count_time(double tr, Vehicle &car){
         n=n-1;
     }
     return n;
-}*/
-/*class Engine:public Vehicle
-{
-    double count_con(double power);
-public:
-    double power, con;
-};
-class FS:public Vehicle
-{
-public:
-    double v, fleft;
-    friend double count_fleft(double v, ///);
-};
-class Wheel: public Vehicle
-{
-
-public:
-    double tyre_range;
-    bool status;
-    bool check_status(double tyre_range);
-};*/
+}
 void menu(Vehicle *car);
 Vehicle input();
 double checkchar1();
@@ -197,6 +82,7 @@ int main()
  Vehicle car[10];
  menu(car);
  return 0;
+
 }
 Vehicle input(){
     int t_tyres;
@@ -242,9 +128,9 @@ void trace_results(Vehicle *car, int n){
     for(int r=0; r<(n); r++){
         cout<<(r)<<"."<<tmp[r].name<<endl;
         cout<<" time: ";
-        cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+       // cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
+       cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;
         cout<<"refuel times: "<<tmp[r].refuel<<endl;
-        cout<<"Fuel left: "<<tmp[r].fleft<<endl;
     }
 }
 void newpage(){
@@ -279,8 +165,7 @@ double tr=0;
             }
             else{
             for(int i=0;i<(n);i++){
-            car[i].output(i);
-            }
+            car[i].output(i);}
             }
             break;
             case 3:
@@ -289,18 +174,26 @@ double tr=0;
                 cout<<"Trace length is "<<tr<<endl;
                 break;
                 case 4:
+                if(n==0){
+                        cout<<"Empty"<<endl;
+                    }
+                else{
                 if(tr==0){
                     cout<<"Wouldn't you like to input trace length first?"<<endl;
                     cin>>tr;
                 }
                 for(int i=0; i<(n); i++){
-                 cout<<"Counting for Vehicle "<<i<<endl;
-                 count_time(tr, car[i]);
-                 //car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
-                 }
+                 car[i].count_time(tr, car[i].speed);
+                 car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
+                }
                  cout<<"Success"<<endl;
+                }
                 break;
                 case 5:
+                    if(n==0){
+                        cout<<"Empty"<<endl;
+                    }
+                    else{
                     if(car[0].time1==0){
                             cout<<"You should have counted time first. I am doing it myself."<<endl;
                     if(tr==0){
@@ -308,11 +201,12 @@ double tr=0;
                     cin>>tr;
                 }
                         for(int i=0; i<(n); i++){
-                 count_time(tr, car[i]);
-                 //car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
-                 }
+                 car[i].count_time(tr, car[i].speed);
+                car[i].refuel=car[i].count_ref(car[i].v, car[i].con, tr);
+                }
                     }
                      trace_results(car, n);
+                    }
                     break;
                 case 6:
                     cout<<"Are you sure? (1-yes, 2-no)"<<endl;
@@ -327,7 +221,7 @@ double tr=0;
                             break;
                             case 2:
                                 it=1;
-break;
+                                break;
                                 default:
                                     cout<<"Error"<<endl;
                                     break;
