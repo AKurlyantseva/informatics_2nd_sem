@@ -109,7 +109,8 @@ public:
     ~Vehicle(){
         cout<<"Vehicle has been deleted!"<<endl;
     }
-
+    void box_time();//count
+    void output();//count
     void output(int n);
 };
 double Vehicle::count_speed(double power, int tyres, Wheel *c1){
@@ -149,9 +150,11 @@ void count_time(double tr, Vehicle &car){
         car.time1+=(0.5/car.speed);
     }
 }//needs changes
-void start();
+//void start();
 bool is_finished();
 bool is_broken();
+bool is_finished();//overload
+bool is_broken();//overload
 bool need_box();
 
 
@@ -217,6 +220,23 @@ void newpage(){
         cout<<endl;
     }
 }
+bool is_finished(Vehicle &car, double tr, int c, int *n){
+  bool f=false;
+  if(car.range==(tr*c)){
+    f=true;
+  }
+  (*n)+=1;
+}
+bool is_broken();
+bool is_finished(bool *f, int n){
+     bool all_f=false;
+     if(n==(sizeof(f)/sizeof(f[0]))){
+        all_f=true;
+     }
+     return all_f;
+    }//overload
+bool is_broken();//overload
+bool need_box();
 void menu(Vehicle (&car)[10]){
 int choose, it=1, n=0, circle=0;
 double tr=0;
