@@ -18,7 +18,14 @@ class Engine
         Engine(double t_power){
           power=t_power;
           count_con(power);}
+        void output(char c);
 };
+void Engine::output(char c){
+     cout<<"Engine:"<<endl;
+     cout<<"Power: "<<power<<endl;
+     cout<<"Consumption: "<<con<<endl;
+
+}
 class FS
 {
 public:
@@ -27,7 +34,12 @@ public:
     FS(){v=0;}
     FS(double t_v){
     v=t_v;}
+    void output(double n);
 };
+void FS::output(double n){
+     cout<<"Fuel system:"<<endl;
+     cout<<"Capacity: "<<v<<endl;
+}
 void FS::count_fleft(double v, double range, double con){
      //double fleft;
      fleft=v-range*con;
@@ -123,8 +135,12 @@ cout<<"Tyres: "<<tyres<<endl;
 cout<<"Capacity: "<<v<<endl;
 //cout<<"Range: "<<range<<endl;
 cout<<"Power: "<<power<<endl;
-cout<<"Speed: "<<speed<<endl;
+cout<<"Maximal speed: "<<speed<<endl;
 cout<<"Consumption: "<<con<<endl;
+/*double i=1/3;
+char c='c';*/
+/*output1('c');
+output1(1/3);*/
 }
 //void Vehicle::count_time(double tr, double speed, Wheel *c1, int tyres, double power, double v, double con){
 void count_time(double tr, Vehicle &car){
@@ -253,7 +269,8 @@ double tr=0;
             }
             else{
             for(int i=0;i<(n);i++){
-            car[i].output(i);}
+            car[i].output(i);
+            }
             }
             break;
             case 3:
