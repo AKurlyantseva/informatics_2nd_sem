@@ -242,8 +242,7 @@ void trace_results(Vehicle *car, int n){
     for(int r=0; r<(n); r++){
         cout<<(r)<<"."<<tmp[r].name<<endl;
         cout<<" time: ";
-        cout<< ((int)tmp[r].time1)/3600<<" hours, "<< (((int)tmp[r].time1)%3600)/60<< " minutes, "<< tmp[r].time1-(((tmp[r].time1)/(double)60)*60)<<" seconds"<<endl;
-        cout<<"refuel times: "<<tmp[r].refuel<<endl;
+cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;        cout<<"refuel times: "<<tmp[r].refuel<<endl;
         cout<<"Fuel left: "<<tmp[r].fleft<<endl;
     }
 }
