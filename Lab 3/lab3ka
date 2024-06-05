@@ -154,7 +154,7 @@ void count_time(double tr, Vehicle &car){
         car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
         tmp_tr+=0.5;
         for(int i=0; i<car.tyres; i++){
-            car.c1[i].tyre_range=tmp_tr;
+            car.c1[i].tyre_range+=0.5;
         }
         car.time1+=(0.5/car.speed);
     }
