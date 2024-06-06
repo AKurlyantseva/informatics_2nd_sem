@@ -157,14 +157,15 @@ bool is_finished(Vehicle &car, double tr, int c, int *n){
   return f;
 }
 void Vehicle::is_broken(int *n_all){
-   int t=0;
+   bad_wheels=0;
    for(int i=0; i<tyres; i++){
     if(c1[i].status==false){
-        t+=1;
+        bad_wheels+=1;
     }
    }
-   if((t==tyres)||(fleft==0)){
+   if((bad_wheels==tyres)||(fleft<=0)){
      b=true;
+     (*n_all)-=1;
    }
 }
 bool is_finished(bool *f, int n){
