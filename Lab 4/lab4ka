@@ -29,13 +29,13 @@ void Engine::output(char c){
 class FS
 {
 public:
-    int refuel;
+    //int refuel;
     double v, fleft;
     void count_fleft(double v, double range, double con);
-    FS(){v=refuel=0;}
+    FS(){v=0;}
     FS(double t_v){
     v=t_v;
-    refuel=0;}
+    //refuel=0;}
     void output(double n);
 };
 void FS::output(double n){
@@ -45,12 +45,12 @@ void FS::output(double n){
 void FS::count_fleft(double v, double range, double con){
      //double fleft;
      fleft=v-range*con;
-     if(fleft<=0){
+     /*if(fleft<=0){
         cout<<"You have run out of fuel!"<<endl;
         cout<<"Refueling..."<<endl;
         fleft=v;
         refuel+=1;
-     }
+     }*/
      //return fleft;
 }
 class Wheel
@@ -113,6 +113,12 @@ public:
     void output();//count
     void output(int n);
 };
+void Vehicle::box_time(){
+      time1+=(3*(double)tyres+50/60*(v-fleft));
+    }//count
+void Vehicle::output(){
+
+   }//count
 double Vehicle::count_speed(double power, int tyres, Wheel *c1){
     double speed;
     int c=0;
@@ -234,7 +240,7 @@ bool is_broken(Vehicle &car, int *n_all){
         t+=1;
     }
    }
-   if(t==car.tyres){
+   if((t==car.tyres)||(car.fleft==0)){
      b=true;
    }
    return b;
@@ -246,7 +252,19 @@ bool is_finished(bool *f, int n){
      }
      return all_f;
     }//overload
-bool need_box();
+bool need_box(Vehicle &car, double tr){
+  bool n=false;
+  int t=0;
+  for(int i=0; i<car.tyres; i++){
+    if(car.c1[i].status==false){
+        t+=1;
+    }
+   }
+   if((t!=0)||(car.fleft<=(car.con*tr*1.25/100))){
+    n=true;
+   }
+  return n;
+}
 void menu(Vehicle (&car)[10]){
 int choose, it=1, n=0, circle=0;
 double tr=0;
