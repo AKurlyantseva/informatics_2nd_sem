@@ -242,6 +242,7 @@ bool is_broken(Vehicle &car, int *n_all){
    }
    if((t==car.tyres)||(car.fleft==0)){
      b=true;
+     (*n_all)-=1;
    }
    return b;
 }
