@@ -112,7 +112,7 @@ public:
     ~Vehicle(){
         cout<<"Vehicle has been deleted!"<<endl;
     }
-    bool is_broken(int *n_all)
+    void is_broken(int *n_all)
     void box_time();//count
     void output();//count
     void output(int n);
@@ -148,9 +148,8 @@ cout<<"Power: "<<power<<endl;
 cout<<"Maximal speed: "<<speed<<endl;
 cout<<"Consumption: "<<con<<endl;
 }
-void count_time(double tr, Vehicle &car){
-    double tmp_tr=0;
-    while(tmp_tr<=tr){
+void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, int *n_all){
+    /*while(tmp_tr<=tr){
         car.speed=car.count_speed(car.power, car.tyres, car.c1);
         car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
         tmp_tr+=0.5;
@@ -158,7 +157,25 @@ void count_time(double tr, Vehicle &car){
             car.c1[i].tyre_range+=0.5;
         }
         car.time1+=(0.5/car.speed);
+    }*/
+    bool box=false;
+    if((*tmp_tr)>=tr){
+        box=need_box(car, tr);
+        if(box==true){
+            car.box_time();
+        }
+        (*tmp_tr)=0;
     }
+    car.speed=car.count_speed(car.power, car.tyres, car.c1);
+    (*tmp_tr)+=(1*car.speed);
+    car.range+=(1*car.speed);
+    for(int i=0; i<car.tyres; i++){
+        car.c1.tyre_range=car.range;
+    }
+    car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
+    is_finished(car, tr, c, n_fin);
+    car.is_broken(n_all);
+    car.time1+=1;
 }//needs changes
 //void start();
 bool is_finished(Vehicle &car, double tr, int c, int *n);
@@ -194,31 +211,54 @@ Vehicle input(){
 void trace_results(Vehicle *car, int n){
     Vehicle tmp[n];
     Vehicle tm;
+    int broken=0, cb=0;
+    for(int c=0; c<(n); c++){
+     if(car[c].b==true){
+        broken+=1;
+     }
+    }
     for(int k=0; k<(n); k++){
-    tmp[k]=car[k];
+            if(car[k].b==false){
+               tmp[k-cb]=car[k];
+    }
+            else{
+                cb+=1;
+            }
+    }
+    for(int u=0; u<n; u++){
+    for(int t=n-broken; t<n; t++){
+        if(car[u].b==true){
+            tmp[t]=car[u];
+        }
+    }
     }
     for(int i=0; i<(n); i++){
         for(int j=(n-1); j>i; j--){
-            if(tmp[i].time1-tmp[j].time1>0){
+            if((tmp[i].time1-tmp[j].time1>0)&&(tmp[i].b!=true)){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
                 tmp[j]=tm;
             }
-            else if(tmp[i].time1==tmp[j].time1){
+            /*else if((tmp[i].time1==tmp[j].time1)&&(tmp[i].b!=true)){
                 if(tmp[i].refuel>tmp[j].refuel){
                     tm=tmp[i];
                     tmp[i]=tmp[j];
                     tmp[j]=tm;
                 }
-            }
+            }*/
         }
     }
     cout<<"Results:"<<endl;
     for(int r=0; r<(n); r++){
-        cout<<(r)<<"."<<tmp[r].name<<endl;
-        cout<<" time: ";
-cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;        cout<<"refuel times: "<<tmp[r].refuel<<endl;
-        cout<<"Fuel left: "<<tmp[r].fleft<<endl;
+        if(b==false)
+          {cout<<(r)<<"."<<tmp[r].name<<endl;
+          cout<<" time: ";
+          cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;        cout<<"refuel times: "<<tmp[r].refuel<<endl;
+          cout<<"Fuel left: "<<tmp[r].fleft<<endl;}
+        else{
+            cout<<r<<"."<<tmp[r].name<<endl;
+            cout<<"Vehicle is broken!"<<endl;
+        }
     }
 }
 void newpage(){
@@ -236,7 +276,7 @@ bool is_finished(Vehicle &car, double tr, int c, int *n){
   }
   (*n)+=1;
 }
-bool Vehicle::is_broken(int *n_all){
+void Vehicle::is_broken(int *n_all){
    int t=0;
    for(int i=0; i<tyres; i++){
     if(c1[i].status==false){
