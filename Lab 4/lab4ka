@@ -169,7 +169,13 @@ void Vehicle::is_broken(int *n_all){
 }
 bool is_finished(bool *f, int n){
      bool all_f=false;
-     if(n==(sizeof(f)/sizeof(f[0]))){
+     int tm=0;
+     for(int i=0; i<n; i++){
+        if(f[i]==true){
+            tm+=1;
+        }
+     }
+     if(n==tm){
         all_f=true;
      }
      return all_f;
@@ -213,7 +219,7 @@ void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, in
         car.c1[i].tyre_range=car.range;
     }
     car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
-    is_finished(car, tr, c, n_fin);
+    (*f)=is_finished(car, tr, c, n_fin);
     car.is_broken(n_all);
     car.time1+=1;}
 }//needs changes
@@ -377,10 +383,12 @@ for(int i=0; i<10; i++){
                     cin>>circle;
                 }
                     }
+                       //
                        while(all_finished==false){
                             for(int i=0; i<(n); i++){
                                 (tmp_tr)=0;
                                 count_time(tr, car[i], &(f[i]), &tmp_tr, &n_fin, &n_all, circle);
+                                car[i].output();
                  }
                             all_finished=is_finished(f, n_all);
                     }
