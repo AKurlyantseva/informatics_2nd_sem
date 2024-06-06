@@ -30,6 +30,7 @@ public:
     //refuel=0;}
     void output(double n);
 };
+
 void FS::output(double n){
      cout<<"Fuel system:"<<endl;
      cout<<"Capacity: "<<v<<endl;
@@ -112,6 +113,9 @@ public:
     void output();//count
     void output(int n);
 };
+bool is_finished(Vehicle &car, double tr, int c, int *n);
+bool is_finished(bool *f, int n);//overload
+bool need_box(Vehicle &car, double tr);
 void Vehicle::box_time(){
       time1+=(3*(double)tyres+50/60*(v-fleft));
     }//count
@@ -214,11 +218,6 @@ void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, in
     car.time1+=1;}
 }//needs changes
 //void start();
-bool is_finished(Vehicle &car, double tr, int c, int *n);
-//bool is_broken();
-bool is_finished(bool *f, int n);//overload
-bool need_box(Vehicle &car, double tr);
-
 
 void menu(Vehicle (&car)[10]);
 Vehicle input();
@@ -303,15 +302,15 @@ void newpage(){
 void menu(Vehicle (&car)[10]){
 int choose, it=1, n=0, circle=0;
 double tr=0;
-double *tmp_tr;
-(*tmp_tr)=0;
-int *n_fin;
-int *n_all;
-(*n_fin)=0;
-(*n_all)=n;
-bool f[100];
+double tmp_tr=0;
+//(*tmp_tr)=0;
+int n_fin=0;
+int n_all=0;
+//(*n_fin)=0;
+//(*n_all)=n;
+bool f[10];
 bool all_finished=false;
-for(int i=0; i<100; i++){
+for(int i=0; i<10; i++){
     f[i]=false;
 }
     while(it==1){
@@ -328,7 +327,7 @@ for(int i=0; i<100; i++){
     case 1:
             car[n]=input();
             n++;
-            (*n_all)=n;
+            (n_all)=n;
         break;
         case 2:
             if(n==0){
@@ -360,11 +359,11 @@ for(int i=0; i<100; i++){
                  while(all_finished==false){
                             for(int i=0; i<(n); i++){
                                 //cout<<"Counting for Vehicle "<<i<<endl;
-                                (*tmp_tr)=0;
-                                count_time(tr, car[i], &(f[i]), tmp_tr, n_fin, n_all, circle);
+                                (tmp_tr)=0;
+                                count_time(tr, car[i], &(f[i]), &tmp_tr, &n_fin, &n_all, circle);
                                 //car[i].output();
                  }
-                            all_finished=is_finished(f, *n_all);
+                            all_finished=is_finished(f, n_all);
                     }
 
                  cout<<"Success"<<endl;
@@ -380,10 +379,10 @@ for(int i=0; i<100; i++){
                     }
                        while(all_finished==false){
                             for(int i=0; i<(n); i++){
-                                (*tmp_tr)=0;
-                                count_time(tr, car[i], &(f[i]), tmp_tr, n_fin, n_all, circle);
+                                (tmp_tr)=0;
+                                count_time(tr, car[i], &(f[i]), &tmp_tr, &n_fin, &n_all, circle);
                  }
-                            all_finished=is_finished(f, *n_all);
+                            all_finished=is_finished(f, n_all);
                     }
                      trace_results(car, n);
                     break;
