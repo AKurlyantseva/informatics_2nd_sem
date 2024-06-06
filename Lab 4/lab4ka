@@ -1,14 +1,6 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
-/*Поля данных:
-текущая скорость ТС - функция от мощности, статуса колес и оставшегося топлива; count v?
-Методы:
-прохождение по трассе; count!
-
-Поля данных:
-текущий пробег колеса; v, but count
-*/
 class Engine
 {
     public:
@@ -75,8 +67,9 @@ double Wheel::count_ware(double tyre_range, int n){
 }
 bool Wheel::check_status(double t_ware){
      bool status;
-     int k=0.005;
-     k=t_ware*k;
+     const double c=0.005;
+     int k=1;
+     k=t_ware*c;
      if(k>=1){
         status=false;
      }
@@ -160,7 +153,8 @@ void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, in
         }
         car.time1+=(0.5/car.speed);
     }*/
-    bool box=false;
+    if(((*f)==false)&&(car.b==false))
+    {bool box=false;
     if((*tmp_tr)>=tr){
         box=need_box(car, tr);
         if(box==true){
@@ -177,7 +171,7 @@ void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, in
     car.count_fleft(car.v, car.c1[0].tyre_range, car.con);
     is_finished(car, tr, c, n_fin);
     car.is_broken(n_all);
-    car.time1+=1;
+    car.time1+=1;}
 }//needs changes
 //void start();
 bool is_finished(Vehicle &car, double tr, int c, int *n);
@@ -213,12 +207,7 @@ Vehicle input(){
 void trace_results(Vehicle *car, int n){
     Vehicle tmp[n];
     Vehicle tm;
-    int broken=0, cb=0;
-    for(int c=0; c<(n); c++){
-     if(car[c].b==true){
-        broken+=1;
-     }
-    }
+    int cb=0;
     for(int k=0; k<(n); k++){
             if(car[k].b==false){
                tmp[k-cb]=car[k];
@@ -228,7 +217,7 @@ void trace_results(Vehicle *car, int n){
             }
     }
     for(int u=0; u<n; u++){
-    for(int t=n-broken; t<n; t++){
+    for(int t=n-car.bad_wheels; t<n; t++){
         if(car[u].b==true){
             tmp[t]=car[u];
         }
@@ -312,6 +301,17 @@ bool need_box(Vehicle &car, double tr){
 void menu(Vehicle (&car)[10]){
 int choose, it=1, n=0, circle=0;
 double tr=0;
+double *tmp_tr;
+(*tmp_tr)=0;
+int *n_fin;
+int *n_all;
+(*n_fin)=0;
+(*n_all)=n;
+bool f[100];
+bool all_finished=false;
+for(int i=0; i<100; i++){
+    f[i]=false;
+}
     while(it==1){
             cout<<"Choose your option:"<<endl;
             cout<<"1-Input new information about vehicles"<<endl;
@@ -326,6 +326,7 @@ double tr=0;
     case 1:
             car[n]=input();
             n++;
+            (*n_all)=n;
         break;
         case 2:
             if(n==0){
@@ -354,10 +355,16 @@ double tr=0;
                     cin>>tr;
                     cin<<circle;
                 }
-                for(int i=0; i<(n); i++){
-                 cout<<"Counting for Vehicle "<<i<<endl;
-                 count_time(tr, car[i]);
+                 while(all_finished==false){
+                            for(int i=0; i<(n); i++){
+                                //cout<<"Counting for Vehicle "<<i<<endl;
+                                (*tmp_tr)=0;
+                                count_time(tr, car[i], *(f[i]), tmp_tr, n_fin, n_all);
+                                //car[i].output();
                  }
+                            all_finished=is_finished(f, *n_all);
+                    }
+
                  cout<<"Success"<<endl;
                 break;
                 case 5:
@@ -368,9 +375,13 @@ double tr=0;
                     cin>>tr;
                     cin<<circle;
                 }
-                        for(int i=0; i<(n); i++){
-                 count_time(tr, car[i]);
+                    }
+                       while(all_finished==false){
+                            for(int i=0; i<(n); i++){
+                                (*tmp_tr)=0;
+                                count_time(tr, car[i], *(f[i]), tmp_tr, n_fin, n_all);
                  }
+                            all_finished=is_finished(f, *n_all);
                     }
                      trace_results(car, n);
                     break;
