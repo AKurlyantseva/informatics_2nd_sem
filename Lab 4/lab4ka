@@ -93,6 +93,7 @@ public:
     double speed, range;
     double time1;
     char name[100];
+    bool b;
     friend void count_time(double tr, Vehicle &car);
     Vehicle(int t_tyres, double t_v, double t_power){
         tyres=t_tyres;
@@ -102,13 +103,16 @@ public:
         count_con(power);
         speed=count_speed(power,tyres,c1);
         time1=0;
+        b=false;
     }
 
-    Vehicle(){v=tyres=power=time1=0;}
+    Vehicle(){v=tyres=power=time1=0;
+              b=false;}
 
     ~Vehicle(){
         cout<<"Vehicle has been deleted!"<<endl;
     }
+    bool is_broken(int *n_all)
     void box_time();//count
     void output();//count
     void output(int n);
@@ -157,10 +161,10 @@ void count_time(double tr, Vehicle &car){
     }
 }//needs changes
 //void start();
-bool is_finished();
-bool is_broken();
-bool is_finished();//overload
-bool need_box();
+bool is_finished(Vehicle &car, double tr, int c, int *n);
+//bool is_broken();
+bool is_finished(bool *f, int n);//overload
+bool need_box(Vehicle &car, double tr);
 
 
 void menu(Vehicle (&car)[10]);
@@ -232,19 +236,16 @@ bool is_finished(Vehicle &car, double tr, int c, int *n){
   }
   (*n)+=1;
 }
-bool is_broken(Vehicle &car, int *n_all){
-   bool b=false;
+bool Vehicle::is_broken(int *n_all){
    int t=0;
-   for(int i=0; i<car.tyres; i++){
-    if(car.c1[i].status==false){
+   for(int i=0; i<tyres; i++){
+    if(c1[i].status==false){
         t+=1;
     }
    }
-   if((t==car.tyres)||(car.fleft==0)){
+   if((t==tyres)||(fleft==0)){
      b=true;
-     (*n_all)-=1;
    }
-   return b;
 }
 bool is_finished(bool *f, int n){
      bool all_f=false;
