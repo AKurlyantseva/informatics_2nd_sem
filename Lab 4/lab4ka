@@ -34,7 +34,7 @@ public:
     void count_fleft(double v, double range, double con);
     FS(){v=0;}
     FS(double t_v){
-    v=t_v;
+    v=t_v;}
     //refuel=0;}
     void output(double n);
 };
@@ -86,8 +86,9 @@ bool Wheel::check_status(double t_ware){
      return status;
 }
 class Vehicle: public FS, public Engine{
-    double count_speed(double power, int tyres, Wheel *c1);
+    void count_speed(double power, int tyres, Wheel *c1);
 public:
+    int bad_wheels;
     Wheel c1[100];
     int tyres;
     double speed, range;
@@ -121,20 +122,21 @@ void Vehicle::box_time(){
       time1+=(3*(double)tyres+50/60*(v-fleft));
     }//count
 void Vehicle::output(){
-
+      cout<<"Fuel left: "<<fleft<<endl;
+      cout<<"Current speed: "<<speed<<endl;
+      cout<<"Wheels left: "<<(tyres-bad_wheels)<<endl;
    }//count
-double Vehicle::count_speed(double power, int tyres, Wheel *c1){
-    double speed;
-    int c=0;
+void Vehicle::count_speed(double power, int tyres, Wheel *c1){
+    bad_wheels=0;
     for(int i=0; i<tyres; i++){
        c1[i].count_ware(c1[i].tyre_range, ((i/2)+1));
        c1[i].check_status(c1[i].t_ware);
        if(c1[i].status==false){
-         c+=1;
+         bad_wheels+=1;
        }
     }
     speed=power/(0.730*v*10*(double)tyres)*(pow(0.75,(double)c));
-    return speed;
+
 }
 void Engine::count_con(double power){
     con=(0.649)*power;
