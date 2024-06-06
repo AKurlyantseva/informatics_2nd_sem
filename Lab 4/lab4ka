@@ -154,7 +154,6 @@ void count_time(double tr, Vehicle &car){
 bool is_finished();
 bool is_broken();
 bool is_finished();//overload
-bool is_broken();//overload
 bool need_box();
 
 
@@ -227,7 +226,19 @@ bool is_finished(Vehicle &car, double tr, int c, int *n){
   }
   (*n)+=1;
 }
-bool is_broken();
+bool is_broken(Vehicle &car, int *n_all){
+   bool b=false;
+   int t=0;
+   for(int i=0; i<car.tyres; i++){
+    if(car.c1[i].status==false){
+        t+=1;
+    }
+   }
+   if(t==car.tyres){
+     b=true;
+   }
+   return b;
+}
 bool is_finished(bool *f, int n){
      bool all_f=false;
      if(n==(sizeof(f)/sizeof(f[0]))){
@@ -235,7 +246,6 @@ bool is_finished(bool *f, int n){
      }
      return all_f;
     }//overload
-bool is_broken();//overload
 bool need_box();
 void menu(Vehicle (&car)[10]){
 int choose, it=1, n=0, circle=0;
