@@ -123,6 +123,7 @@ void Vehicle::output(){
       cout<<"Fuel left: "<<fleft<<endl;
       cout<<"Current speed: "<<speed<<endl;
       cout<<"Wheels left: "<<(tyres-bad_wheels)<<endl;
+      cout<<"Current time: "<<time1<<endl;
    }//count
 void Vehicle::count_speed(double power, int tyres, Wheel *c1){
     bad_wheels=0;
@@ -253,25 +254,13 @@ Vehicle input(){
 void trace_results(Vehicle *car, int n){
     Vehicle tmp[n];
     Vehicle tm;
-    int cb=0;
-    for(int k=0; k<(n); k++){
-            if(car[k].b==false){
-               tmp[k-cb]=car[k];
-    }
-            else{
-                cb+=1;
-            }
-    }
-    for(int u=0; u<n; u++){
-    for(int t=n-car[u].bad_wheels; t<n; t++){
-        if(car[u].b==true){
-            tmp[t]=car[u];
-        }
-    }
+   for(int k=0; k<(n); k++){
+    tmp[k]=car[k];
     }
     for(int i=0; i<(n); i++){
         for(int j=(n-1); j>i; j--){
-            if((tmp[i].time1-tmp[j].time1>0)&&(tmp[i].b!=true)){
+            //if((tmp[i].time1-tmp[j].time1>0)&&(tmp[i].b!=true)){
+            if((tmp[i].time1-tmp[j].time1>0)){
                 tm=tmp[i];
                 tmp[i]=tmp[j];
                 tmp[j]=tm;
@@ -290,14 +279,17 @@ void trace_results(Vehicle *car, int n){
         if(tmp[r].b==false)
           {cout<<(r)<<"."<<tmp[r].name<<endl;
           cout<<" time: ";
+          //cout<<tmp[r].time1<<endl;
           cout<< ((int)(tmp[r].time1)/3600)<<" hours, "<< (((int)(tmp[r].time1)%3600)/60)<< " minutes, "<< (tmp[r].time1)-(((int)(tmp[r].time1)/3600)*3600+(((int)(tmp[r].time1)%3600)/60)*60)<<" seconds"<<endl;
           cout<<"Fuel left: "<<tmp[r].fleft<<endl;}
-        else{
+        }
+     for(int r=0; r<(n); r++){
+        if(tmp[r].b==true){
             cout<<r<<"."<<tmp[r].name<<endl;
             cout<<"Vehicle is broken!"<<endl;
         }
-    }
 }
+    }
 void newpage(){
     int a;
     cout<<"Press enter to continue"<<endl;
