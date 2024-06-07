@@ -151,7 +151,7 @@ cout<<"Consumption: "<<con<<endl;
 }
 bool is_finished(Vehicle &car, double tr, int c, int *n){
   bool f=false;
-  if(car.range==(tr*c)){
+  if(car.range>=(tr*c)){
     f=true;
   }
   (*n)+=1;
