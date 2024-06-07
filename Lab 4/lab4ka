@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 using namespace std;
 class Engine
 {
@@ -227,16 +228,16 @@ void count_time(double tr, Vehicle &car, bool *f, double *tmp_tr, int *n_fin, in
 }//needs changes
 //void start();
 
-void menu(Vehicle (&car)[10]);
-Vehicle input();
+void menu(vector <Vehicle> car);
+void input(vector <Vehicle> car);
 double checkchar1();
 int main()
 {
- Vehicle car[10];
+ vector <Vehicle> car(1);
  menu(car);
  return 0;
 }
-Vehicle input(){
+void input(vector <Vehicle> car){
     int t_tyres;
  double t_v;
  double t_power;
@@ -247,11 +248,11 @@ Vehicle input(){
  cout << "Input power" << endl;
  t_power=checkchar1();
  cout << "Input name" << endl;
- Vehicle car(t_tyres, t_v, t_power);
- cin>>car.name;
- return car;
+ Vehicle car1(t_tyres, t_v, t_power);
+ cin>>car1.name;
+ car.push_back(car1);
 }
-void trace_results(Vehicle *car, int n){
+void trace_results(vector <Vehicle> car, int n){
     Vehicle tmp[n];
     Vehicle tm;
    for(int k=0; k<(n); k++){
@@ -298,7 +299,7 @@ void newpage(){
         cout<<endl;
     }
 }
-void menu(Vehicle (&car)[10]){
+void menu(vector <Vehicle> car){
 int choose, it=1, n=0, circle=0;
 double tr=0;
 double tmp_tr=0;
@@ -324,7 +325,7 @@ for(int i=0; i<10; i++){
     newpage();
     switch(choose){
     case 1:
-            car[n]=input();
+            input(car);
             n++;
             (n_all)=n;
         break;
